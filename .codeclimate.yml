@@ -1,0 +1,50 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - php
+
+  phpcodesniffer:
+    enabled: true
+    config:
+      standard: "PSR2"
+
+  phpmd:
+    enabled: true
+    checks:
+      UnusedFormalParameter:
+        enabled: false
+      Naming/ShortMethodName:
+        enabled: false
+      Naming/ShortVariable:
+        enabled: false
+      CleanCode/StaticAccess:
+        enabled: false
+      UnusedLocalVariable:
+        enabled: false
+      Design/TooManyPublicMethods:
+        enabled: false
+
+ratings:
+  paths:
+    - "**.php"
+
+exclude_paths:
+  - "bootstrap/"
+  - "database/"
+  - "storage/"
+  - "tests/"
+  - "**.md"
+  - "**.json"
+  - "**.xml"
+  - "**.dist"
+  - "**.lock"
+  - "artisan"
+  - "**.js"
+  - "**.css"
+  - "**.ico"
+  - "**.txt"
+  - "**.config"
+  - "**.vue"
+  - "**.scss"
