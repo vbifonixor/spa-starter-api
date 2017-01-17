@@ -17,7 +17,7 @@ cache:
 
 # Installing project
 before_script:
-  - cp .env .env.example
+  - cp .env.example .env
   - travis_retry composer self-update
   - travis_retry composer update --no-interaction --prefer-dist
   - php artisan key:gen
