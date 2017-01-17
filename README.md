@@ -10,7 +10,7 @@ SPA Starter Pack API written in Laravel 5.3
 ## Credits
 
 - [Lucas Pires][link-author]
-- [Todos os contribuidores][link-contributors]
+- [All contributors][link-contributors]
 
 ## License
 
