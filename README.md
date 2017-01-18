@@ -7,10 +7,30 @@
 
 SPA Starter Pack API written in Laravel 5.3
 
+## Up and Running
+
+- Clone the project `$ git clone git@github.com:coderwebschool/spa-starter-api.git`
+- Create the env file `$ cp .env.example .env`
+- Create the database file `$ touch database/database.sqlite`
+- Install composer dependencies `$ composer install`
+- Generate an APP_KEY `$ php artisan key:gen`
+- Migrate the database and run the seeders `$ php artisan migrate --seed`
+- Start the server `$ php artisan serve`
+- Visit **http://localhost:8000**
+
+## Contributing
+
+- Fork it!
+- Create your feature branch from master: `git checkout -b feature/my-new-feature`
+- Write your code, comment your code, test your code
+- Commit your changes `git commit -am 'Add some feature'`
+- Push to the branch `git push origin feature/my-new-feature`
+- Submit a pull request to master branch
+
 ## Credits
 
 - [Lucas Pires][link-author]
-- [All contributors][link-contributors]
+- [All Contributors][link-contributors]
 
 ## License
 
