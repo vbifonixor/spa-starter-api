@@ -14,6 +14,7 @@ SPA Starter Pack API written in Laravel 5.3
 - Create the database file `$ touch database/database.sqlite`
 - Install composer dependencies `$ composer install`
 - Generate an APP_KEY `$ php artisan key:gen`
+- Generate a JWT secret key `$ php artisan jwt:generate`
 - Migrate the database and run the seeders `$ php artisan migrate --seed`
 - Start the server `$ php artisan serve`
 - Visit **http://localhost:8000**
@@ -21,11 +22,17 @@ SPA Starter Pack API written in Laravel 5.3
 ## Contributing
 
 - Fork it!
-- Create your feature branch from master: `git checkout -b feature/my-new-feature`
+- Create your feature branch from master: `$ git checkout -b feature/my-new-feature`
 - Write your code, comment your code, test your code
-- Commit your changes `git commit -am 'Add some feature'`
-- Push to the branch `git push origin feature/my-new-feature`
+- Commit your changes `$ git commit -am 'Add some feature'`
+- Push to the branch `$ git push origin feature/my-new-feature`
 - Submit a pull request to master branch
+
+## Testing
+
+``` bash
+$ composer test
+```
 
 ## Credits
 
