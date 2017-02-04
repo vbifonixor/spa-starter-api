@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use Illuminate\Http\Request;
+use App\Http\Requests\AuthorRequest;
 
 class AuthorsController extends Controller
 {
+    /**
+     * Creates a new class instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('jwt.auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,10 +33,11 @@ class AuthorsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  AuthorRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(AuthorRequest $request)
     {
         $author = Author::create([
             'name' => $request->name,
@@ -66,7 +76,7 @@ class AuthorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AuthorRequest $request, $id)
     {
         $author = Author::find($id);
 

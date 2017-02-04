@@ -94,11 +94,35 @@ class AuthorsControllerTest extends TestCase
      * @test
      * @dataProvider urlProvider
      */
-    public function get_404_if_author_is_not_found($method, $url)
+    public function get_404_if_author_is_not_found($method, $url, $fields = [])
     {
-        $this->json($method, $url);
+        $this->json($method, $url, $fields);
 
         $this->assertResponseStatus(404);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
+    }
+
+    /** @test */
+    public function is_validating_fields_before_create_an_author()
+    {
+        $this->json('POST', '/api/authors');
+
+        $this->assertResponseStatus(422);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
+    }
+
+    /** @test */
+    public function is_validating_fields_before_update_an_author()
+    {
+        factory(Author::class)->create();
+
+        $this->json('PUT', '/api/authors/1');
+
+        $this->assertResponseStatus(422);
         $this->seeJsonStructure([
             'errors' => [[]],
         ]);
@@ -113,7 +137,7 @@ class AuthorsControllerTest extends TestCase
     {
         return [
             ['GET', '/api/authors/1'],
-            ['PUT', '/api/authors/1'],
+            ['PUT', '/api/authors/1', ['name' => 'John']],
             ['DELETE', '/api/authors/1'],
         ];
     }

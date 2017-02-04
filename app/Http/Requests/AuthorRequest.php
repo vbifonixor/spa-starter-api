@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class SignUpRequest extends BaseRequest
+class AuthorRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,6 @@ class SignUpRequest extends BaseRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
         ];
     }
 }
