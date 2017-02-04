@@ -78,4 +78,15 @@ class AuthorsControllerTest extends TestCase
             'data' => ['id', 'name'],
         ]);
     }
+
+    /** @test */
+    public function can_delete_an_author()
+    {
+        factory(Author::class)->create();
+
+        $this->json('DELETE', '/api/authors/1');
+
+        $this->dontSeeInDatabase('authors', ['id' => 1]);
+        $this->assertResponseStatus(204);
+    }
 }

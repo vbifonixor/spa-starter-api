@@ -102,6 +102,8 @@ class AuthorsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Author::find($id)->delete();
+
+        return response()->json(null, 204);
     }
 }
