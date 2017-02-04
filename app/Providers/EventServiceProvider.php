@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Event;
+use App\Listeners\JWTAbsentTokenListener;
+use App\Listeners\JWTExpiredTokenListener;
+use App\Listeners\JWTInvalidTokenListener;
+use App\Listeners\JWTUserNotFoundListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -13,8 +17,17 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        'tymon.jwt.absent' => [
+            JWTAbsentTokenListener::class,
+        ],
+        'tymon.jwt.expired' => [
+            JWTExpiredTokenListener::class,
+        ],
+        'tymon.jwt.invalid' => [
+            JWTInvalidTokenListener::class,
+        ],
+        'tymon.jwt.user_not_found' => [
+            JWTUserNotFoundListener::class,
         ],
     ];
 

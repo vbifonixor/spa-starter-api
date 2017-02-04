@@ -14,3 +14,7 @@
 Route::post('/auth/token', 'AuthController@token');
 
 Route::post('/signup', 'SignUpController@create');
+
+Route::resource('/authors', 'AuthorsController', [
+    'except' => ['create', 'edit'],
+]);
