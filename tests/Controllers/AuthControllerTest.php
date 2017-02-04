@@ -16,7 +16,7 @@ class AuthControllerTest extends TestCase
 
         $this->assertResponseStatus(401);
         $this->seeJsonStructure([
-            'error' => ['message'],
+            'errors' => [[]],
         ]);
     }
 
