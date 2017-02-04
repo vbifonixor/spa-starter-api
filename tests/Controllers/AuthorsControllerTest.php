@@ -23,4 +23,21 @@ class AuthorsControllerTest extends TestCase
             ],
         ]);
     }
+
+    /** @test */
+    public function can_create_an_author()
+    {
+        $this->json('POST', '/api/authors', [
+            'name' => 'John Doe',
+        ]);
+
+        $this->assertResponseStatus(201);
+        $this->seeInDatabase('authors', ['name' => 'John Doe']);
+        $this->seeJson([
+            'name' => 'John Doe',
+        ]);
+        $this->seeJsonStructure([
+            'data' => ['id', 'name'],
+        ]);
+    }
 }
