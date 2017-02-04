@@ -12,7 +12,7 @@ class AuthController extends Controller
      *
      * @param  Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function token(Request $request)
     {
