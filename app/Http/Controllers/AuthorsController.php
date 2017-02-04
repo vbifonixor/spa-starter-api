@@ -17,7 +17,7 @@ class AuthorsController extends Controller
         $authors = Author::all();
 
         return response()->json([
-            'data' => $authors->toArray(),
+            'data' => $authors,
         ], 200);
     }
 
@@ -44,7 +44,7 @@ class AuthorsController extends Controller
         ]);
 
         return response()->json([
-            'data' => $author->toArray(),
+            'data' => $author,
         ], 201);
     }
 
@@ -56,7 +56,11 @@ class AuthorsController extends Controller
      */
     public function show($id)
     {
-        //
+        $author = Author::find($id);
+
+        return response()->json([
+            'data' => $author,
+        ], 200);
     }
 
     /**
@@ -79,7 +83,15 @@ class AuthorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $author = Author::find($id);
+
+        $author->fill([
+            'name' => $request->name,
+        ])->save();
+
+        return response()->json([
+            'data' => $author,
+        ], 200);
     }
 
     /**

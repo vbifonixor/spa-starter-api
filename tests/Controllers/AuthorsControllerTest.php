@@ -31,9 +31,47 @@ class AuthorsControllerTest extends TestCase
             'name' => 'John Doe',
         ]);
 
-        $this->assertResponseStatus(201);
         $this->seeInDatabase('authors', ['name' => 'John Doe']);
+        $this->assertResponseStatus(201);
         $this->seeJson([
+            'name' => 'John Doe',
+        ]);
+        $this->seeJsonStructure([
+            'data' => ['id', 'name'],
+        ]);
+    }
+
+    /** @test */
+    public function can_show_an_author()
+    {
+        $author = factory(Author::class)->create();
+
+        $this->json('GET', '/api/authors/1');
+
+        $this->assertResponseOk();
+        $this->seeJson(['name' => $author->name]);
+        $this->seeJsonStructure([
+            'data' => ['id', 'name'],
+        ]);
+    }
+
+    /** @test */
+    public function can_update_an_author()
+    {
+        $author = factory(Author::class)->create();
+
+        $this->json('PUT', '/api/authors/1', [
+            'name' => 'John Doe',
+        ]);
+
+        $this->seeInDatabase('authors', [
+            'id' => $author->id,
+            'name' => 'John Doe',
+        ]);
+
+        $this->assertResponseOk();
+        $this->seeJson([
+            'id' => $author->id,
             'name' => 'John Doe',
         ]);
         $this->seeJsonStructure([
