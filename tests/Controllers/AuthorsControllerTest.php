@@ -89,4 +89,32 @@ class AuthorsControllerTest extends TestCase
         $this->dontSeeInDatabase('authors', ['id' => 1]);
         $this->assertResponseStatus(204);
     }
+
+    /**
+     * @test
+     * @dataProvider urlProvider
+     */
+    public function get_404_if_author_is_not_found($method, $url)
+    {
+        $this->json($method, $url);
+
+        $this->assertResponseStatus(404);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
+    }
+
+    /**
+     * Provider an array of URL arguments.
+     *
+     * @return array
+     */
+    public function urlProvider()
+    {
+        return [
+            ['GET', '/api/authors/1'],
+            ['PUT', '/api/authors/1'],
+            ['DELETE', '/api/authors/1'],
+        ];
+    }
 }

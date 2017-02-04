@@ -48,6 +48,12 @@ class AuthorsController extends Controller
     {
         $author = Author::find($id);
 
+        if (! $author) {
+            return response()->json([
+                'errors' => ['Not found.'],
+            ], 404);
+        }
+
         return response()->json([
             'data' => $author,
         ], 200);
@@ -63,6 +69,12 @@ class AuthorsController extends Controller
     public function update(Request $request, $id)
     {
         $author = Author::find($id);
+
+        if (! $author) {
+            return response()->json([
+                'errors' => ['Not found.'],
+            ], 404);
+        }
 
         $author->fill([
             'name' => $request->name,
@@ -81,7 +93,15 @@ class AuthorsController extends Controller
      */
     public function destroy($id)
     {
-        Author::find($id)->delete();
+        $author = Author::find($id);
+
+        if (! $author) {
+            return response()->json([
+                'errors' => ['Not found.'],
+            ], 404);
+        }
+
+        $author->delete();
 
         return response()->json(null, 204);
     }
