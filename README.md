@@ -19,7 +19,7 @@ SPA Starter Pack API written in Laravel 5.3
 - Start the server `$ php artisan serve`
 - Visit **http://localhost:8000**
 
-> See the full documentation of the [wetransfer][link-endpoits-doc].
+> See the full documentation of the [API endpoints here][link-endpoits-doc].
 
 ## Contributing
 
