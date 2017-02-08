@@ -19,6 +19,8 @@ SPA Starter Pack API written in Laravel 5.3
 - Start the server `$ php artisan serve`
 - Visit **http://localhost:8000**
 
+> See the full documentation of the [wetransfer][link-endpoits-doc].
+
 ## Contributing
 
 - Fork it!
@@ -54,3 +56,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-code-quality]: https://codeclimate.com/github/coderwebschool/spa-starter-api/code
 [link-author]: https://github.com/flyingluscas
 [link-contributors]: ../../contributors
+[link-endpoits-doc]: ENDPOINTS.md
