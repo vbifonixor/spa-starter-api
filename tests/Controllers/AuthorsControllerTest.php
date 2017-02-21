@@ -9,8 +9,7 @@ class AuthorsControllerTest extends TestCase
 {
     use DatabaseMigrations, WithoutMiddleware;
 
-    /** @test */
-    public function can_list_the_authors()
+    public function testCanListTheAuthors()
     {
         $authors = factory(Author::class, 5)->create();
 
@@ -24,8 +23,7 @@ class AuthorsControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function can_create_an_author()
+    public function testCanCreateAuthor()
     {
         $this->json('POST', '/api/authors', [
             'name' => 'John Doe',
@@ -41,8 +39,7 @@ class AuthorsControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function can_show_an_author()
+    public function testCanShowAuthor()
     {
         $author = factory(Author::class)->create();
 
@@ -55,8 +52,7 @@ class AuthorsControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function can_update_an_author()
+    public function testCanUpdateAuthor()
     {
         $author = factory(Author::class)->create();
 
@@ -79,8 +75,7 @@ class AuthorsControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function can_delete_an_author()
+    public function testCanDeleteAuthor()
     {
         factory(Author::class)->create();
 
@@ -91,10 +86,9 @@ class AuthorsControllerTest extends TestCase
     }
 
     /**
-     * @test
      * @dataProvider urlProvider
      */
-    public function get_404_if_author_is_not_found($method, $url, $fields = [])
+    public function testCanGet404($method, $url, $fields = [])
     {
         $this->json($method, $url, $fields);
 
@@ -104,8 +98,7 @@ class AuthorsControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function is_validating_fields_before_create_an_author()
+    public function testIsValidatingFieldsBeforeCreate()
     {
         $this->json('POST', '/api/authors');
 
@@ -115,8 +108,7 @@ class AuthorsControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function is_validating_fields_before_update_an_author()
+    public function testIsValidatingFieldsBeforeUpdate()
     {
         factory(Author::class)->create();
 

@@ -9,8 +9,7 @@ class AuthControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /** @test */
-    public function is_checking_for_invalid_credentials()
+    public function testInvalidCredentials()
     {
         $this->json('POST', '/api/auth/token');
 
@@ -20,8 +19,7 @@ class AuthControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function can_get_authenticated_token()
+    public function testCanGetAuthenticatedToken()
     {
         $user = factory(User::class)->create();
 

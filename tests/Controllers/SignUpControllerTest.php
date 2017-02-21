@@ -9,8 +9,7 @@ class SignUpControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /** @test */
-    public function is_checking_for_empty_fields()
+    public function testIsCheckingForEmptyFields()
     {
         $this->json('POST', '/api/signup');
 
@@ -20,8 +19,7 @@ class SignUpControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function is_checking_for_invalid_email()
+    public function testIsCheckingForValidEmailAddress()
     {
         $this->json('POST', '/api/signup', [
             'name' => 'John',
@@ -35,8 +33,7 @@ class SignUpControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function is_checking_for_unique_email()
+    public function testIsCheckingForUniqueEmailAddress()
     {
         $email = factory(User::class)->create()->email;
 
@@ -52,8 +49,7 @@ class SignUpControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function can_signup_user()
+    public function testSignUp()
     {
         $user = factory(User::class)->make([
             'password' => str_random(5),
