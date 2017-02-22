@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class BooksControllerTest extends TestCase
+class CreateTest extends TestCase
 {
     use DatabaseMigrations, WithoutMiddleware;
 
@@ -21,23 +21,18 @@ class BooksControllerTest extends TestCase
             'author' => $author->id,
         ]);
 
-        $this->assertResponseStatus(201);
-
-        $this->seeInDatabase('books', [
-            'title' => $title,
-            'author_id' => $author->id,
-        ]);
-
-        $this->seeJson([
-            'title' => $title,
-            'name' => $author->name,
-        ]);
-
-        $this->seeJsonStructure([
-            'data' => [
-                'id', 'title',
-                'author' => ['id', 'name'],
-            ],
-        ]);
+        $this->assertResponseStatus(201)
+            ->seeInDatabase('books', [
+                'title' => $title,
+                'author_id' => $author->id,
+            ])->seeJson([
+                'title' => $title,
+                'name' => $author->name,
+            ])->seeJsonStructure([
+                'data' => [
+                    'id', 'title',
+                    'author' => ['id', 'name'],
+                ],
+            ]);
     }
 }
