@@ -12,7 +12,7 @@ class CreateTest extends TestCase
     {
         $title = 'The Jedi Path';
         $author = Author::create([
-            'name' => 'Daniel Wallace'
+            'name' => 'Daniel Wallace',
         ]);
 
         $this->json('POST', '/api/books', [
