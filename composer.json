@@ -48,8 +48,8 @@
             "php artisan optimize"
         ],
         "test": "phpunit --color=always",
-        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 ./app ./config ./routes ./tests",
-        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 ./app ./config ./routes ./tests"
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 ./app ./config ./routes",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 ./app ./config ./routes"
     },
     "config": {
         "preferred-install": "dist",

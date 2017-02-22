@@ -1,9 +1,7 @@
 <?php
 
 use App\User;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SignUpControllerTest extends TestCase
 {
@@ -24,7 +22,7 @@ class SignUpControllerTest extends TestCase
         $this->json('POST', '/api/signup', [
             'name' => 'John',
             'email' => 'foo',
-            'password' => 'bar'
+            'password' => 'bar',
         ]);
 
         $this->assertResponseStatus(422);
@@ -40,7 +38,7 @@ class SignUpControllerTest extends TestCase
         $this->json('POST', '/api/signup', [
             'name' => 'John',
             'email' => $email,
-            'password' => 'bar'
+            'password' => 'bar',
         ]);
 
         $this->assertResponseStatus(422);
