@@ -50,9 +50,23 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $book = Book::find($id);
+
+        if (! $book) {
+            return response()->json([
+                'errors' => ['Book not found.'],
+            ], 404);
+        }
+
+        if ($request->query('include') == 'author') {
+            $book->load('author');
+        }
+
+        return response()->json([
+            'data' => $book,
+        ], 200);
     }
 
     /**
