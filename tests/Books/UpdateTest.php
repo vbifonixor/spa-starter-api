@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Books;
+
 use App\Book;
 use App\Author;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -61,19 +63,5 @@ class UpdateTest extends TestCase
             ->seeJsonStructure([
                 'errors' => [[]],
             ]);
-    }
-
-    /**
-     * Provides an array of invalid field values
-     * for testing request validations.
-     *
-     * @return array
-     */
-    public function invalidFieldsValuesProvider()
-    {
-        return [
-            [null, null],
-            ['The Jedi Path', 99],
-        ];
     }
 }

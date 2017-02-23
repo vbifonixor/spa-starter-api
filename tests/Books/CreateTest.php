@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Books;
+
 use App\Author;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -32,6 +34,19 @@ class CreateTest extends TestCase
                     'id', 'title',
                     'author' => ['id', 'name'],
                 ],
+            ]);
+    }
+
+    /**
+     * @dataProvider invalidFieldsValuesProvider
+     */
+    public function testIsValidatingFields($title, $author)
+    {
+        $this->json('POST', '/api/books', compact('title', 'author'));
+
+        $this->assertResponseStatus(422)
+            ->seeJsonStructure([
+                'errors' => [[]],
             ]);
     }
 }

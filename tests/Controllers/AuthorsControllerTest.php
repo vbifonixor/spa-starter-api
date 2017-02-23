@@ -1,6 +1,9 @@
 <?php
 
+namespace Tests\Controllers;
+
 use App\Author;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Books;
+
 use App\Book;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

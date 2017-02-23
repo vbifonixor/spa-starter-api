@@ -1,6 +1,9 @@
 <?php
 
+namespace Tests\Controllers;
+
 use App\User;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AuthControllerTest extends TestCase
