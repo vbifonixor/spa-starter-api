@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use Illuminate\Http\Request;
+use App\Http\Requests\BookRequest;
 
 class BooksController extends Controller
 {
@@ -76,9 +77,26 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, $id)
     {
-        //
+        $book = Book::find($id);
+
+        if (! $book) {
+            return response()->json([
+                'errors' => ['Book not found.'],
+            ], 404);
+        }
+
+        $book->fill($request->all())
+            ->author()
+            ->associate($request->author)
+            ->save();
+
+        $book->load('author');
+
+        return response()->json([
+            'data' => $book,
+        ], 200);
     }
 
     /**
