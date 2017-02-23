@@ -3,7 +3,6 @@
 namespace Tests\Books;
 
 use App\Book;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -23,7 +22,7 @@ class FetchTest extends TestCase
             ])->seeJsonStructure([
                 'data' => ['*' => [
                     'id', 'title',
-                ]]
+                ]],
             ]);
     }
 
@@ -41,7 +40,7 @@ class FetchTest extends TestCase
                     'id', 'title', 'author' => [
                         'id', 'name',
                     ],
-                ]]
+                ]],
             ]);
     }
 
