@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
 
@@ -26,5 +27,15 @@ abstract class TestCase extends LaravelTestCase
         $app->make(Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    /**
+     * Parse response body to an array.
+     *
+     * @return array
+     */
+    public function parseJsonBody()
+    {
+        return json_decode($this->response->getContent(), true);
     }
 }

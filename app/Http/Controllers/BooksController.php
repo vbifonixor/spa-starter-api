@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Book;
 use Illuminate\Http\Request;
 use App\Http\Requests\BookRequest;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BooksController extends Controller
 {
@@ -21,9 +23,29 @@ class BooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $limit = (int) $request->query('limit', 10);
+        $include = $request->query('include');
+        $sort = $request->query('sort');
+        $order = $request->query('order_by');
+
+        $books = Book::take($limit)->orderBy($sort, $order);
+
+        if ($include == 'author') {
+            $books = $books->with('author');
+        }
+
+        $books = $books->get();
+
+        $pagination = new LengthAwarePaginator($books, Book::count(), $limit);
+
+        return response()->json([
+            'data' => $books,
+            'metadata' => [
+                'pagination' => array_except($pagination->toArray(), 'data'),
+            ],
+        ], 200);
     }
 
     /**
@@ -36,7 +58,9 @@ class BooksController extends Controller
     {
         $book = new Book($request->all());
 
-        $book->author()->associate($request->author)->save();
+        $book->author()
+            ->associate($request->author)
+            ->save();
 
         $book->load('author');
 
