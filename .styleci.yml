@@ -2,7 +2,6 @@ preset: laravel
 
 finder:
   exclude:
-    - tests
     - views
 
   not-name:

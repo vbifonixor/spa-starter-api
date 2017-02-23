@@ -1,16 +1,16 @@
 <?php
 
+namespace Tests\Controllers;
+
 use App\User;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SignUpControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /** @test */
-    public function is_checking_for_empty_fields()
+    public function testIsCheckingForEmptyFields()
     {
         $this->json('POST', '/api/signup');
 
@@ -20,13 +20,12 @@ class SignUpControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function is_checking_for_invalid_email()
+    public function testIsCheckingForValidEmailAddress()
     {
         $this->json('POST', '/api/signup', [
             'name' => 'John',
             'email' => 'foo',
-            'password' => 'bar'
+            'password' => 'bar',
         ]);
 
         $this->assertResponseStatus(422);
@@ -35,15 +34,14 @@ class SignUpControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function is_checking_for_unique_email()
+    public function testIsCheckingForUniqueEmailAddress()
     {
         $email = factory(User::class)->create()->email;
 
         $this->json('POST', '/api/signup', [
             'name' => 'John',
             'email' => $email,
-            'password' => 'bar'
+            'password' => 'bar',
         ]);
 
         $this->assertResponseStatus(422);
@@ -52,8 +50,7 @@ class SignUpControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function can_signup_user()
+    public function testSignUp()
     {
         $user = factory(User::class)->make([
             'password' => str_random(5),

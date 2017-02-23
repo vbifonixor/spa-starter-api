@@ -28,3 +28,12 @@ $factory->define(App\Author::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
     ];
 });
+
+$factory->define(App\Book::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->title,
+        'author_id' => function () {
+            return factory(App\Author::class)->create()->id;
+        },
+    ];
+});

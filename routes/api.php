@@ -18,3 +18,7 @@ Route::post('/signup', 'SignUpController@create');
 Route::resource('/authors', 'AuthorsController', [
     'except' => ['create', 'edit'],
 ]);
+
+Route::resource('/books', 'BooksController', [
+    'except' => ['create', 'edit'],
+]);
