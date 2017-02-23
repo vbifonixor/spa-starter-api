@@ -63,6 +63,12 @@ class UpdateTest extends TestCase
             ]);
     }
 
+    /**
+     * Provides an array of invalid field values
+     * for testing request validations.
+     *
+     * @return array
+     */
     public function invalidFieldsValuesProvider()
     {
         return [
