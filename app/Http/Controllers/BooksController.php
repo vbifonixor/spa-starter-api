@@ -20,7 +20,9 @@ class BooksController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -50,8 +52,9 @@ class BooksController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  BookRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(BookRequest $request)
     {
@@ -71,8 +74,10 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @param  int     $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, $id)
     {
@@ -96,9 +101,10 @@ class BooksController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  BookRequest $request
+     * @param  int         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(BookRequest $request, $id)
     {
@@ -126,7 +132,8 @@ class BooksController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
