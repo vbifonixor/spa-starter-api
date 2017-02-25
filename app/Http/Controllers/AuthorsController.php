@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use Illuminate\Http\Request;
 use App\Http\Requests\AuthorRequest;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AuthorsController extends Controller
 {
@@ -18,14 +20,32 @@ class AuthorsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $authors = Author::all();
+        $limit = (int) $request->query('limit', 10);
+        $include = $request->query('include');
+        $sort = $request->query('sort');
+        $order = $request->query('order_by');
+
+        $authors = Author::take($limit)->orderBy($sort, $order);
+
+        if ($include) {
+            $authors = $authors->with($include);
+        }
+
+        $authors = $authors->get();
+
+        $pagination = new LengthAwarePaginator($authors, Author::count(), $limit);
 
         return response()->json([
             'data' => $authors,
+            'metadata' => [
+                'pagination' => array_except($pagination->toArray(), 'data'),
+            ],
         ], 200);
     }
 
@@ -50,12 +70,15 @@ class AuthorsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @param  int     $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $author = Author::find($id);
+        $include = $request->query('include');
+        $author = ($include) ? Author::with($include)->find($id) : Author::find($id);
 
         if (! $author) {
             return response()->json([
@@ -73,7 +96,8 @@ class AuthorsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(AuthorRequest $request, $id)
     {
@@ -98,7 +122,8 @@ class AuthorsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {

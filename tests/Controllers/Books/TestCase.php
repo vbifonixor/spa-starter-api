@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Books;
+namespace Tests\Controllers\Books;
 
 use Tests\TestCase as BaseTestCase;
 

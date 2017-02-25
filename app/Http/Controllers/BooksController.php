@@ -33,8 +33,8 @@ class BooksController extends Controller
 
         $books = Book::take($limit)->orderBy($sort, $order);
 
-        if ($include == 'author') {
-            $books = $books->with('author');
+        if ($include) {
+            $books = $books->with($include);
         }
 
         $books = $books->get();
@@ -81,16 +81,13 @@ class BooksController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $book = Book::find($id);
+        $include = $request->query('include');
+        $book = ($include) ? Book::with($include)->find($id) : Book::find($id);
 
         if (! $book) {
             return response()->json([
                 'errors' => ['Book not found.'],
             ], 404);
-        }
-
-        if ($request->query('include') == 'author') {
-            $book->load('author');
         }
 
         return response()->json([

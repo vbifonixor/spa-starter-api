@@ -27,14 +27,4 @@ abstract class TestCase extends LaravelTestCase
 
         return $app;
     }
-
-    /**
-     * Parse response body to an array.
-     *
-     * @return array
-     */
-    public function parseJsonBody()
-    {
-        return json_decode($this->response->getContent(), true);
-    }
 }
