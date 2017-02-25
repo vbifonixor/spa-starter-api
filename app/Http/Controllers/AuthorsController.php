@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use Illuminate\Http\Request;
 use App\Http\Requests\AuthorRequest;
 
 class AuthorsController extends Controller
@@ -53,7 +54,7 @@ class AuthorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $author = Author::find($id);
 
@@ -61,6 +62,10 @@ class AuthorsController extends Controller
             return response()->json([
                 'errors' => ['Not found.'],
             ], 404);
+        }
+
+        if ($request->query('include') == 'books') {
+            $author->load('books');
         }
 
         return response()->json([
