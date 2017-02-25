@@ -20,9 +20,12 @@ class FetchTest extends TestCase
             ->seeJson([
                 'title' => $book->title,
             ])->seeJsonStructure([
-                'data' => ['*' => [
-                    'id', 'title',
-                ]],
+                'data' => [
+                    '*' => ['id', 'title'],
+                ],
+                'metadata' => [
+                    'pagination',
+                ],
             ]);
     }
 
@@ -36,11 +39,17 @@ class FetchTest extends TestCase
             ->seeJson([
                 'name' => $book->author->name,
             ])->seeJsonStructure([
-                'data' => ['*' => [
-                    'id', 'title', 'author' => [
-                        'id', 'name',
-                    ],
-                ]],
+                'data' => [
+                    '*' => [
+                        'id', 'title',
+                        'author' => [
+                            'id', 'name',
+                        ],
+                    ]
+                ],
+                'metadata' => [
+                    'pagination',
+                ],
             ]);
     }
 }

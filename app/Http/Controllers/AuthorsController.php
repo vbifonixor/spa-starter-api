@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Author;
 use Illuminate\Http\Request;
 use App\Http\Requests\AuthorRequest;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AuthorsController extends Controller
 {
@@ -25,11 +26,26 @@ class AuthorsController extends Controller
      */
     public function index(Request $request)
     {
+        $limit = (int) $request->query('limit', 10);
         $include = $request->query('include');
-        $authors = ($include) ? Author::with($include)->get() : Author::all();
+        $sort = $request->query('sort');
+        $order = $request->query('order_by');
+
+        $authors = Author::take($limit)->orderBy($sort, $order);
+
+        if ($include) {
+            $authors = $authors->with($include);
+        }
+
+        $authors = $authors->get();
+
+        $pagination = new LengthAwarePaginator($authors, Author::count(), $limit);
 
         return response()->json([
             'data' => $authors,
+            'metadata' => [
+                'pagination' => array_except($pagination->toArray(), 'data'),
+            ],
         ], 200);
     }
 
