@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Controllers\Authors;
+
 use App\Author;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

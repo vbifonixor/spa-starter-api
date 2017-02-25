@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Books;
+namespace Tests\Controllers\Books;
 
 use App\Author;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Controllers\Authors;
+
 use App\Book;
 use App\Author;
 use Tests\TestCase;
