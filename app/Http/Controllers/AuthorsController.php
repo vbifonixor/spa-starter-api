@@ -19,11 +19,14 @@ class AuthorsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $authors = Author::all();
+        $include = $request->query('include');
+        $authors = ($include) ? Author::with($include)->get() : Author::all();
 
         return response()->json([
             'data' => $authors,
@@ -51,8 +54,10 @@ class AuthorsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @param  int     $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, $id)
     {
@@ -78,7 +83,8 @@ class AuthorsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(AuthorRequest $request, $id)
     {
@@ -103,7 +109,8 @@ class AuthorsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
