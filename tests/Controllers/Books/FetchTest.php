@@ -45,7 +45,7 @@ class FetchTest extends TestCase
                         'author' => [
                             'id', 'name',
                         ],
-                    ]
+                    ],
                 ],
                 'metadata' => [
                     'pagination',
