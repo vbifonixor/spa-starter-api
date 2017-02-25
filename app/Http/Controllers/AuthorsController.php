@@ -61,16 +61,13 @@ class AuthorsController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $author = Author::find($id);
+        $include = $request->query('include');
+        $author = ($include) ? Author::with($include)->find($id) : Author::find($id);
 
         if (! $author) {
             return response()->json([
                 'errors' => ['Not found.'],
             ], 404);
-        }
-
-        if ($request->query('include') == 'books') {
-            $author->load('books');
         }
 
         return response()->json([
