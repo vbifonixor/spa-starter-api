@@ -81,6 +81,18 @@ $app->singleton(
 $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Barryvdh\Cors\LumenServiceProvider::class);
+
+/*
+|--------------------------------------------------------------------------
+| Load The Application Configuration Files
+|--------------------------------------------------------------------------
+|
+| Here we will load the application configuration files.
+|
+*/
+
+$app->configure('cors');
 
 /*
 |--------------------------------------------------------------------------
@@ -93,8 +105,11 @@ $app->register(App\Providers\EventServiceProvider::class);
 |
 */
 
-$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
-    require __DIR__.'/../routes/web.php';
+$app->group([
+    'middleware' => 'cors',
+    'namespace' => 'App\Http\Controllers'
+], function ($app) {
+    require __DIR__.'/../routes/api.php';
 });
 
 return $app;
