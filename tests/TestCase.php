@@ -2,7 +2,9 @@
 
 namespace Tests;
 
-abstract class TestCase extends Laravel\Lumen\Testing\TestCase
+use Laravel\Lumen\Testing\TestCase as LumenTestCase;
+
+abstract class TestCase extends LumenTestCase
 {
     /**
      * Creates the application.

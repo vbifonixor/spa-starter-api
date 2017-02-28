@@ -4,7 +4,7 @@ namespace Tests\Controllers;
 
 use App\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class SignUpControllerTest extends TestCase
 {
