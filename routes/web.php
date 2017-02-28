@@ -14,3 +14,27 @@
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
+$app->post('/api/auth/token', 'AuthController@token');
+
+$app->post('/api/signup', 'SignUpController@create');
+
+$app->group([
+    'prefix' => '/api/authors',
+], function () use ($app) {
+    $app->get('/', 'AuthorsController@index');
+    $app->post('/', 'AuthorsController@store');
+    $app->get('/{id}', 'AuthorsController@show');
+    $app->put('/{id}', 'AuthorsController@update');
+    $app->delete('/{id}', 'AuthorsController@destroy');
+});
+
+$app->group([
+    'prefix' => '/api/books',
+], function () use ($app) {
+    $app->get('/', 'BooksController@index');
+    $app->post('/', 'BooksController@store');
+    $app->get('/{id}', 'BooksController@show');
+    $app->put('/{id}', 'BooksController@update');
+    $app->delete('/{id}', 'BooksController@destroy');
+});
