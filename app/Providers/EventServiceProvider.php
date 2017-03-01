@@ -12,17 +12,6 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'tymon.jwt.absent' => [
-            \App\Listeners\JWTAbsentTokenListener::class,
-        ],
-        'tymon.jwt.expired' => [
-            \App\Listeners\JWTExpiredTokenListener::class,
-        ],
-        'tymon.jwt.invalid' => [
-            \App\Listeners\JWTInvalidTokenListener::class,
-        ],
-        'tymon.jwt.user_not_found' => [
-            \App\Listeners\JWTUserNotFoundListener::class,
-        ],
+        //
     ];
 }
