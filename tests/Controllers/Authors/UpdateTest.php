@@ -4,8 +4,8 @@ namespace Tests\Controllers\Authors;
 
 use App\Author;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\Helpers\WithoutMiddleware;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class UpdateTest extends TestCase
 {
@@ -17,20 +17,20 @@ class UpdateTest extends TestCase
             'name' => 'Daniel Wallace',
         ]);
 
-        $this->assertResponseStatus(404)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(404);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 
     public function testIsValidatingFields()
     {
         $this->json('PUT', '/api/authors/1');
 
-        $this->assertResponseStatus(422)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(422);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 
     public function testCanUpdateAuthor()
@@ -41,14 +41,16 @@ class UpdateTest extends TestCase
             'name' => 'Daniel Wallace',
         ]);
 
-        $this->assertResponseOk()
-            ->seeInDatabase('authors', [
-                'id' => 1,
-                'name' => 'Daniel Wallace',
-            ])->seeJson([
-                'name' => 'Daniel Wallace',
-            ])->seeJsonStructure([
-                'data' => ['id', 'name'],
-            ]);
+        $this->assertResponseOk();
+        $this->seeInDatabase('authors', [
+            'id' => 1,
+            'name' => 'Daniel Wallace',
+        ]);
+        $this->seeJson([
+            'name' => 'Daniel Wallace',
+        ]);
+        $this->seeJsonStructure([
+            'data' => ['id', 'name'],
+        ]);
     }
 }

@@ -4,7 +4,7 @@ namespace Tests\Controllers;
 
 use App\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class SignUpControllerTest extends TestCase
 {
@@ -15,9 +15,6 @@ class SignUpControllerTest extends TestCase
         $this->json('POST', '/api/signup');
 
         $this->assertResponseStatus(422);
-        $this->seeJsonStructure([
-            'errors' => [[]],
-        ]);
     }
 
     public function testIsCheckingForValidEmailAddress()
@@ -29,9 +26,6 @@ class SignUpControllerTest extends TestCase
         ]);
 
         $this->assertResponseStatus(422);
-        $this->seeJsonStructure([
-            'errors' => [[]],
-        ]);
     }
 
     public function testIsCheckingForUniqueEmailAddress()
@@ -45,9 +39,6 @@ class SignUpControllerTest extends TestCase
         ]);
 
         $this->assertResponseStatus(422);
-        $this->seeJsonStructure([
-            'errors' => [[]],
-        ]);
     }
 
     public function testSignUp()

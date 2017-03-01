@@ -4,7 +4,7 @@ namespace Tests\Controllers;
 
 use App\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class AuthControllerTest extends TestCase
 {
@@ -15,9 +15,6 @@ class AuthControllerTest extends TestCase
         $this->json('POST', '/api/auth/token');
 
         $this->assertResponseStatus(401);
-        $this->seeJsonStructure([
-            'errors' => [[]],
-        ]);
     }
 
     public function testCanGetAuthenticatedToken()

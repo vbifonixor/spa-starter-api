@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Http\Requests\SignUpRequest;
 use Illuminate\Support\Facades\Hash;
 
 class SignUpController extends Controller
@@ -12,12 +12,18 @@ class SignUpController extends Controller
     /**
      * Creates new user account.
      *
-     * @param  SignUpRequest $request
+     * @param  Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(SignUpRequest $request)
+    public function create(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+        ]);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,

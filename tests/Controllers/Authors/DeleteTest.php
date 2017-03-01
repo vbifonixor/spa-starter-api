@@ -4,8 +4,8 @@ namespace Tests\Controllers\Authors;
 
 use App\Author;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\Helpers\WithoutMiddleware;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class DeleteTest extends TestCase
 {
@@ -15,10 +15,10 @@ class DeleteTest extends TestCase
     {
         $this->json('DELETE', '/api/authors/1');
 
-        $this->assertResponseStatus(404)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(404);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 
     public function testCanDeleteAuthor()
@@ -27,9 +27,9 @@ class DeleteTest extends TestCase
 
         $this->json('DELETE', '/api/authors/1');
 
-        $this->assertResponseStatus(204)
-            ->dontSeeInDatabase('authors', [
-                'id' => 1,
-            ]);
+        $this->assertResponseStatus(204);
+        $this->dontSeeInDatabase('authors', [
+            'id' => 1,
+        ]);
     }
 }

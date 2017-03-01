@@ -3,8 +3,8 @@
 namespace Tests\Controllers\Books;
 
 use App\Author;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\Helpers\WithoutMiddleware;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class CreateTest extends TestCase
 {
@@ -22,19 +22,21 @@ class CreateTest extends TestCase
             'author' => $author->id,
         ]);
 
-        $this->assertResponseStatus(201)
-            ->seeInDatabase('books', [
-                'title' => $title,
-                'author_id' => $author->id,
-            ])->seeJson([
-                'title' => $title,
-                'name' => $author->name,
-            ])->seeJsonStructure([
-                'data' => [
-                    'id', 'title',
-                    'author' => ['id', 'name'],
-                ],
-            ]);
+        $this->assertResponseStatus(201);
+        $this->seeInDatabase('books', [
+            'title' => $title,
+            'author_id' => $author->id,
+        ]);
+        $this->seeJson([
+            'title' => $title,
+            'name' => $author->name,
+        ]);
+        $this->seeJsonStructure([
+            'data' => [
+                'id', 'title',
+                'author' => ['id', 'name'],
+            ],
+        ]);
     }
 
     /**
@@ -44,9 +46,9 @@ class CreateTest extends TestCase
     {
         $this->json('POST', '/api/books', compact('title', 'author'));
 
-        $this->assertResponseStatus(422)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(422);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 }

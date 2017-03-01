@@ -2,29 +2,53 @@
 
 namespace Tests;
 
-use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
+use Illuminate\Support\Facades\DB;
+use Tests\Helpers\WithoutMiddleware;
+use Laravel\Lumen\Testing\TestCase as LumenTestCase;
 
-abstract class TestCase extends LaravelTestCase
+abstract class TestCase extends LumenTestCase
 {
-    /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
-     */
-    protected $baseUrl = 'http://localhost';
-
     /**
      * Creates the application.
      *
-     * @return \Illuminate\Foundation\Application
+     * @return \Laravel\Lumen\Application
      */
     public function createApplication()
     {
-        $app = require __DIR__.'/../bootstrap/app.php';
+        return require __DIR__.'/../bootstrap/app.php';
+    }
 
-        $app->make(Kernel::class)->bootstrap();
+    public function setUp()
+    {
+        parent::setUp();
 
-        return $app;
+        $this->setUpHelpers();
+    }
+
+    /**
+     * Boot the testing helper traits.
+     *
+     * @return void
+     */
+    protected function setUpHelpers()
+    {
+        $uses = array_flip(class_uses_recursive(get_class($this)));
+
+        if (isset($uses[WithoutMiddleware::class])) {
+            $this->disableMiddlewareForAllTests();
+        }
+    }
+
+    /**
+     * Assert if a piece of data is not in database.
+     *
+     * @param  string $table
+     * @param  array  $data
+     *
+     * @return void
+     */
+    protected function dontSeeInDatabase($table, array $data)
+    {
+        $this->assertFalse(DB::table($table)->where($data)->count() > 0);
     }
 }

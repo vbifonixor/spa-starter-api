@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use Illuminate\Http\Request;
-use App\Http\Requests\AuthorRequest;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class AuthorsController extends Controller
@@ -52,12 +51,16 @@ class AuthorsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  AuthorRequest $request
+     * @param  Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(AuthorRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
         $author = Author::create([
             'name' => $request->name,
         ]);
@@ -94,13 +97,17 @@ class AuthorsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Request $request
+     * @param  int     $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(AuthorRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
         $author = Author::find($id);
 
         if (! $author) {

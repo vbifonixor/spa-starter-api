@@ -3,8 +3,8 @@
 namespace Tests\Controllers\Authors;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\Helpers\WithoutMiddleware;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class CreateTest extends TestCase
 {
@@ -12,12 +12,15 @@ class CreateTest extends TestCase
 
     public function testIsValidatingFields()
     {
-        $this->json('POST', '/api/authors');
+        $user = factory(\App\User::class)->create();
 
-        $this->assertResponseStatus(422)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->actingAs($user)
+            ->json('POST', '/api/authors');
+
+        $this->assertResponseStatus(422);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 
     public function testCanCreateAuthor()
@@ -26,13 +29,18 @@ class CreateTest extends TestCase
             'name' => 'Daniel Wallace',
         ]);
 
-        $this->assertResponseStatus(201)
-            ->seeInDatabase('authors', [
-                'name' => 'Daniel Wallace',
-            ])->seeJson([
-                'name' => 'Daniel Wallace',
-            ])->seeJsonStructure([
-                'data' => ['id', 'name'],
-            ]);
+        $this->assertResponseStatus(201);
+
+        $this->seeInDatabase('authors', [
+            'name' => 'Daniel Wallace',
+        ]);
+
+        $this->seeJson([
+            'name' => 'Daniel Wallace',
+        ]);
+
+        $this->seeJsonStructure([
+            'data' => ['id', 'name'],
+        ]);
     }
 }
