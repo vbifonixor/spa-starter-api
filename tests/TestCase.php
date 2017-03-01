@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Support\Facades\DB;
 use Tests\Helpers\WithoutMiddleware;
 use Laravel\Lumen\Testing\TestCase as LumenTestCase;
 
@@ -24,6 +25,11 @@ abstract class TestCase extends LumenTestCase
         $this->setUpHelpers();
     }
 
+    /**
+     * Boot the testing helper traits.
+     *
+     * @return void
+     */
     protected function setUpHelpers()
     {
         $uses = array_flip(class_uses_recursive(get_class($this)));
@@ -31,5 +37,18 @@ abstract class TestCase extends LumenTestCase
         if (isset($uses[WithoutMiddleware::class])) {
             $this->disableMiddlewareForAllTests();
         }
+    }
+
+    /**
+     * Assert if a piece of data is not in database.
+     *
+     * @param  string $table
+     * @param  array  $data
+     *
+     * @return void
+     */
+    protected function dontSeeInDatabase($table, array $data)
+    {
+        $this->assertFalse(DB::table($table)->where($data)->count() > 0);
     }
 }

@@ -18,17 +18,18 @@ class FetchTest extends TestCase
 
         $this->json('GET', '/api/authors');
 
-        $this->assertResponseOk()
-            ->seeJson([
-                'name' => $author->name,
-            ])->seeJsonStructure([
-                'data' => [
-                    '*' => ['id', 'name'],
-                ],
-                'metadata' => [
-                    'pagination',
-                ],
-            ]);
+        $this->assertResponseOk();
+        $this->seeJson([
+            'name' => $author->name,
+        ]);
+        $this->seeJsonStructure([
+            'data' => [
+                '*' => ['id', 'name'],
+            ],
+            'metadata' => [
+                'pagination',
+            ],
+        ]);
     }
 
     public function testCanFetchAuthorsAlongWithTheirBooks()
@@ -37,22 +38,23 @@ class FetchTest extends TestCase
 
         $this->json('GET', '/api/authors?include=books');
 
-        $this->assertResponseOk()
-            ->seeJson([
-                'title' => $book->title,
-                'name' => $book->author->name,
-            ])->seeJsonStructure([
-                'data' => [
-                    '*' => [
-                        'id', 'name',
-                        'books' => [
-                            '*' => ['id', 'title'],
-                        ],
+        $this->assertResponseOk();
+        $this->seeJson([
+            'title' => $book->title,
+            'name' => $book->author->name,
+        ]);
+        $this->seeJsonStructure([
+            'data' => [
+                '*' => [
+                    'id', 'name',
+                    'books' => [
+                        '*' => ['id', 'title'],
                     ],
                 ],
-                'metadata' => [
-                    'pagination',
-                ],
-            ]);
+            ],
+            'metadata' => [
+                'pagination',
+            ],
+        ]);
     }
 }

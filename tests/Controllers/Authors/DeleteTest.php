@@ -15,10 +15,10 @@ class DeleteTest extends TestCase
     {
         $this->json('DELETE', '/api/authors/1');
 
-        $this->assertResponseStatus(404)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(404);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 
     public function testCanDeleteAuthor()
@@ -27,9 +27,9 @@ class DeleteTest extends TestCase
 
         $this->json('DELETE', '/api/authors/1');
 
-        $this->assertResponseStatus(204)
-            ->dontSeeInDatabase('authors', [
-                'id' => 1,
-            ]);
+        $this->assertResponseStatus(204);
+        $this->dontSeeInDatabase('authors', [
+            'id' => 1,
+        ]);
     }
 }
