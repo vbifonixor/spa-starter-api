@@ -13,7 +13,7 @@ SPA Starter Pack API written in Lumen 5.4
 - Create the database file `$ touch database/database.sqlite`
 - Install composer dependencies `$ composer install`
 - Generate a **random string with 32 characters** for the **APP_KEY** variable on your **.env** file.
-- Generate a JWT secret key `$ php artisan jwt:generate`
+- Generate a JWT secret key `$ php artisan jwt:secret`
 - Migrate the database and run the seeders `$ php artisan migrate --seed`
 - Start the server `$ php -S localhost:8000 -t public`
 - Visit **http://localhost:8000**
