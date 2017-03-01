@@ -17,9 +17,10 @@ class CreateTest extends TestCase
         $this->actingAs($user)
             ->json('POST', '/api/authors');
 
-        dd($this->response);
-
         $this->assertResponseStatus(422);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 
     public function testCanCreateAuthor()
@@ -28,13 +29,18 @@ class CreateTest extends TestCase
             'name' => 'Daniel Wallace',
         ]);
 
-        $this->assertResponseStatus(201)
-            ->seeInDatabase('authors', [
-                'name' => 'Daniel Wallace',
-            ])->seeJson([
-                'name' => 'Daniel Wallace',
-            ])->seeJsonStructure([
-                'data' => ['id', 'name'],
-            ]);
+        $this->assertResponseStatus(201);
+
+        $this->seeInDatabase('authors', [
+            'name' => 'Daniel Wallace',
+        ]);
+
+        $this->seeJson([
+            'name' => 'Daniel Wallace',
+        ]);
+
+        $this->seeJsonStructure([
+            'data' => ['id', 'name'],
+        ]);
     }
 }

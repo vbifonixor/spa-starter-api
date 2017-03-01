@@ -13,8 +13,6 @@ return [
     |
     */
 
-   'teste' => 'batata',
-
     'defaults' => [
         'guard' => env('AUTH_GUARD', 'api'),
     ],
