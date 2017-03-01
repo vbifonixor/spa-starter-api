@@ -17,10 +17,10 @@ class UpdateTest extends TestCase
             'name' => 'Daniel Wallace',
         ]);
 
-        $this->assertResponseStatus(404)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(404);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 
     public function testIsValidatingFields()
@@ -28,6 +28,9 @@ class UpdateTest extends TestCase
         $this->json('PUT', '/api/authors/1');
 
         $this->assertResponseStatus(422);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 
     public function testCanUpdateAuthor()
@@ -38,14 +41,16 @@ class UpdateTest extends TestCase
             'name' => 'Daniel Wallace',
         ]);
 
-        $this->assertResponseOk()
-            ->seeInDatabase('authors', [
-                'id' => 1,
-                'name' => 'Daniel Wallace',
-            ])->seeJson([
-                'name' => 'Daniel Wallace',
-            ])->seeJsonStructure([
-                'data' => ['id', 'name'],
-            ]);
+        $this->assertResponseOk();
+        $this->seeInDatabase('authors', [
+            'id' => 1,
+            'name' => 'Daniel Wallace',
+        ]);
+        $this->seeJson([
+            'name' => 'Daniel Wallace',
+        ]);
+        $this->seeJsonStructure([
+            'data' => ['id', 'name'],
+        ]);
     }
 }
