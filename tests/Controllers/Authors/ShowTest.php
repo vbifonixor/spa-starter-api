@@ -16,10 +16,10 @@ class ShowTest extends TestCase
     {
         $this->json('GET', '/api/authors/1');
 
-        $this->assertResponseStatus(404)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(404);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 
     public function testCanFetchAuthor()
@@ -30,12 +30,13 @@ class ShowTest extends TestCase
 
         $this->json('GET', '/api/authors/1');
 
-        $this->assertResponseOk()
-            ->seeJson([
-                'name' => 'Daniel Wallace',
-            ])->seeJsonStructure([
-                'data' => ['id', 'name'],
-            ]);
+        $this->assertResponseOk();
+        $this->seeJson([
+            'name' => 'Daniel Wallace',
+        ]);
+        $this->seeJsonStructure([
+            'data' => ['id', 'name'],
+        ]);
     }
 
     public function testCanFetchAuthorAlongWithBooks()
@@ -51,17 +52,18 @@ class ShowTest extends TestCase
 
         $this->json('GET', '/api/authors/1?include=books');
 
-        $this->assertResponseOk()
-            ->seeJson([
-                'title' => 'The Jedi Path',
-                'name' => 'Daniel Wallace',
-            ])->seeJsonStructure([
-                'data' => [
-                    'id', 'name',
-                    'books' => [
-                        '*' => ['id', 'title'],
-                    ],
+        $this->assertResponseOk();
+        $this->seeJson([
+            'title' => 'The Jedi Path',
+            'name' => 'Daniel Wallace',
+        ]);
+        $this->seeJsonStructure([
+            'data' => [
+                'id', 'name',
+                'books' => [
+                    '*' => ['id', 'title'],
                 ],
-            ]);
+            ],
+        ]);
     }
 }
