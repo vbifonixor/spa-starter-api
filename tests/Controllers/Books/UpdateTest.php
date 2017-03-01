@@ -21,20 +21,22 @@ class UpdateTest extends TestCase
             'author' => $author->id,
         ]);
 
-        $this->assertResponseOk()
-            ->seeInDatabase('books', [
-                'id' => 1,
-                'title' => 'The Jedi Path',
-                'author_id' => $author->id,
-            ])->seeJson([
-                'title' => 'The Jedi Path',
-                'name' => $author->name,
-            ])->seeJsonStructure([
-                'data' => [
-                    'id', 'title',
-                    'author' => ['id', 'name'],
-                ],
-            ]);
+        $this->assertResponseOk();
+        $this->seeInDatabase('books', [
+            'id' => 1,
+            'title' => 'The Jedi Path',
+            'author_id' => $author->id,
+        ]);
+        $this->seeJson([
+            'title' => 'The Jedi Path',
+            'name' => $author->name,
+        ]);
+        $this->seeJsonStructure([
+            'data' => [
+                'id', 'title',
+                'author' => ['id', 'name'],
+            ],
+        ]);
     }
 
     public function testGet404IfNoBookIsFound()
@@ -46,10 +48,10 @@ class UpdateTest extends TestCase
             'author' => $author->id,
         ]);
 
-        $this->assertResponseStatus(404)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(404);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 
     /**
@@ -60,5 +62,8 @@ class UpdateTest extends TestCase
         $this->json('PUT', '/api/books/1', compact('title', 'author'));
 
         $this->assertResponseStatus(422);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 }
