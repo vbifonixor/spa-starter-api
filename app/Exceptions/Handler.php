@@ -71,6 +71,10 @@ class Handler extends ExceptionHandler
             );
         }
 
+        if ($exception instanceof ValidationException) {
+            return $exception->getResponse();
+        }
+
         return $this->makeJsonErrorResponse($exception->getMessage(), 500);
     }
 
