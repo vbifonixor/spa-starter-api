@@ -22,19 +22,21 @@ class CreateTest extends TestCase
             'author' => $author->id,
         ]);
 
-        $this->assertResponseStatus(201)
-            ->seeInDatabase('books', [
-                'title' => $title,
-                'author_id' => $author->id,
-            ])->seeJson([
-                'title' => $title,
-                'name' => $author->name,
-            ])->seeJsonStructure([
-                'data' => [
-                    'id', 'title',
-                    'author' => ['id', 'name'],
-                ],
-            ]);
+        $this->assertResponseStatus(201);
+        $this->seeInDatabase('books', [
+            'title' => $title,
+            'author_id' => $author->id,
+        ]);
+        $this->seeJson([
+            'title' => $title,
+            'name' => $author->name,
+        ]);
+        $this->seeJsonStructure([
+            'data' => [
+                'id', 'title',
+                'author' => ['id', 'name'],
+            ],
+        ]);
     }
 
     /**
@@ -45,5 +47,8 @@ class CreateTest extends TestCase
         $this->json('POST', '/api/books', compact('title', 'author'));
 
         $this->assertResponseStatus(422);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 }
