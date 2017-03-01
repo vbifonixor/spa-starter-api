@@ -16,17 +16,17 @@ class DeleteTest extends TestCase
 
         $this->json('DELETE', '/api/books/1');
 
-        $this->assertResponseStatus(204)
-            ->dontSeeInDatabase('books', ['id' => 1]);
+        $this->assertResponseStatus(204);
+        $this->dontSeeInDatabase('books', ['id' => 1]);
     }
 
     public function testGet404IfNoBookIsFound()
     {
         $this->json('DELETE', '/api/books/1');
 
-        $this->assertResponseStatus(404)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(404);
+        $this->seeJsonStructure([
+            'errors' => [[]],
+        ]);
     }
 }
