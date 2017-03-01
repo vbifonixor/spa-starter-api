@@ -108,7 +108,7 @@ $app->register(App\Providers\EventServiceProvider::class);
 
 $app->group([
     'middleware' => 'cors',
-    'namespace' => 'App\Http\Controllers'
+    'namespace' => 'App\Http\Controllers',
 ], function ($app) {
     require __DIR__.'/../routes/api.php';
 });

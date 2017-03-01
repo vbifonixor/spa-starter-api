@@ -64,15 +64,15 @@ class Handler extends ExceptionHandler
      */
     protected function handleJsonResponse(Request $request, Exception $exception)
     {
+        if ($exception instanceof ValidationException) {
+            return $exception->getResponse();
+        }
+
         if ($exception instanceof HttpException) {
             return $this->makeJsonErrorResponse(
                 $exception->getMessage(),
                 $exception->getStatusCode()
             );
-        }
-
-        if ($exception instanceof ValidationException) {
-            return $exception->getResponse();
         }
 
         return $this->makeJsonErrorResponse($exception->getMessage(), 500);
