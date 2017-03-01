@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use Illuminate\Http\Request;
-use App\Http\Requests\BookRequest;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class BooksController extends Controller
@@ -52,12 +51,17 @@ class BooksController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  BookRequest $request
+     * @param  Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(BookRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'author' => 'required|exists:authors,id',
+        ]);
+
         $book = new Book($request->all());
 
         $book->author()
@@ -98,13 +102,18 @@ class BooksController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  BookRequest $request
+     * @param  Request $request
      * @param  int         $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(BookRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'author' => 'required|exists:authors,id',
+        ]);
+
         $book = Book::find($id);
 
         if (! $book) {

@@ -12,12 +12,14 @@ class CreateTest extends TestCase
 
     public function testIsValidatingFields()
     {
-        $this->json('POST', '/api/authors');
+        $user = factory(\App\User::class)->create();
 
-        $this->assertResponseStatus(422)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->actingAs($user)
+            ->json('POST', '/api/authors');
+
+        dd($this->response);
+
+        $this->assertResponseStatus(422);
     }
 
     public function testCanCreateAuthor()

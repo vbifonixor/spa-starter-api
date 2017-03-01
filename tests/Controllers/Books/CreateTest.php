@@ -44,9 +44,6 @@ class CreateTest extends TestCase
     {
         $this->json('POST', '/api/books', compact('title', 'author'));
 
-        $this->assertResponseStatus(422)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(422);
     }
 }

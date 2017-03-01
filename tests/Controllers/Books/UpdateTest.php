@@ -59,9 +59,6 @@ class UpdateTest extends TestCase
     {
         $this->json('PUT', '/api/books/1', compact('title', 'author'));
 
-        $this->assertResponseStatus(422)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(422);
     }
 }

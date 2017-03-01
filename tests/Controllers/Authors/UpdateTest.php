@@ -27,10 +27,7 @@ class UpdateTest extends TestCase
     {
         $this->json('PUT', '/api/authors/1');
 
-        $this->assertResponseStatus(422)
-            ->seeJsonStructure([
-                'errors' => [[]],
-            ]);
+        $this->assertResponseStatus(422);
     }
 
     public function testCanUpdateAuthor()

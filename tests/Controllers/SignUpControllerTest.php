@@ -15,9 +15,6 @@ class SignUpControllerTest extends TestCase
         $this->json('POST', '/api/signup');
 
         $this->assertResponseStatus(422);
-        $this->seeJsonStructure([
-            'errors' => [[]],
-        ]);
     }
 
     public function testIsCheckingForValidEmailAddress()
@@ -29,9 +26,6 @@ class SignUpControllerTest extends TestCase
         ]);
 
         $this->assertResponseStatus(422);
-        $this->seeJsonStructure([
-            'errors' => [[]],
-        ]);
     }
 
     public function testIsCheckingForUniqueEmailAddress()
@@ -45,9 +39,6 @@ class SignUpControllerTest extends TestCase
         ]);
 
         $this->assertResponseStatus(422);
-        $this->seeJsonStructure([
-            'errors' => [[]],
-        ]);
     }
 
     public function testSignUp()
