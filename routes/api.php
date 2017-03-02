@@ -12,7 +12,7 @@
 */
 
 $app->get('/', function () use ($app) {
-    return $app->version();
+    return "SPA Starter API v1\n".$app->version();
 });
 
 $app->post('/api/auth/token', 'AuthController@token');
