@@ -17,7 +17,6 @@ cache:
 
 # Installing project
 before_script:
-  - cp .env.example .env
   - travis_retry composer self-update
   - travis_retry composer update --no-interaction --prefer-dist
 
@@ -39,6 +38,8 @@ deploy:
   provider: heroku
   api_key:
     secure: $HEROKU_API_KEY
+  on:
+    php: 7.0
   run:
     - composer require fzaninotto/faker:~1.4
     - composer dump-autoload
