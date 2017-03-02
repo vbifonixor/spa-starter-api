@@ -35,7 +35,8 @@
     },
     "scripts": {
         "compile": [
-            "touch database/database.sqlite"
+            "touch database/database.sqlite",
+            "php artisan migrate:refresh --seed --force"
         ],
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
