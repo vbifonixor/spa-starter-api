@@ -9,7 +9,7 @@ SPA Starter Pack API written in Lumen 5.4
 ## Features
 
 - API written in [Lumen 5.4](https://github.com/laravel/lumen/tree/v5.4.0)
-- Authentication usin [JWT](https://github.com/tymondesigns/jwt-auth) (Json Web Token)
+- Authentication using [JWT](https://github.com/tymondesigns/jwt-auth) (Json Web Token)
 
 ## Up and Running
 
