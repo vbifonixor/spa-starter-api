@@ -57,8 +57,10 @@ class SignUpControllerTest extends TestCase
         $this->assertResponseStatus(201);
         $this->seeJson($user->toArray());
         $this->seeJsonStructure([
-            'data' => ['id', 'name', 'email'],
-            'metadata' => ['token'],
+            'data' => [
+                'token',
+                'user' => ['id', 'name', 'email'],
+            ]
         ]);
     }
 }

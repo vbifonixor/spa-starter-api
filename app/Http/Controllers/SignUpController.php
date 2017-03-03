@@ -33,8 +33,8 @@ class SignUpController extends Controller
         $token = JWTAuth::fromUser($user);
 
         return response()->json([
-            'data' => $user->toArray(),
-            'metadata' => [
+            'data' => [
+                'user' => $user,
                 'token' => $token,
             ],
         ], 201);
