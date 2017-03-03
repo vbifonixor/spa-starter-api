@@ -41,6 +41,4 @@ deploy:
   on:
     php: 7.0
   run:
-    - composer require fzaninotto/faker --no-interaction
-    - php artisan migrate:refresh --seed --force
-    - composer remove fzaninotto/faker --no-interaction
+    - php artisan migrate:refresh --force
