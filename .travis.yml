@@ -41,7 +41,5 @@ deploy:
   on:
     php: 7.0
   run:
-    - composer require fzaninotto/faker --no-interaction
     - composer dump-autoload --no-interaction
-    - php /app/artisan migrate:refresh --seed --force
-    - composer remove fzaninotto/faker
+    - php /app/artisan migrate:refresh --force
