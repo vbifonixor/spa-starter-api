@@ -27,8 +27,15 @@ class AuthControllerTest extends TestCase
         ]);
 
         $this->assertResponseOk();
+        $this->seeJson([
+            'name' => $user->name,
+            'email' => $user->email,
+        ]);
         $this->seeJsonStructure([
-            'data' => ['token'],
+            'data' => [
+                'token',
+                'user' => ['id', 'name', 'email'],
+            ],
         ]);
     }
 }
