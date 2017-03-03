@@ -17,7 +17,7 @@ class Controller extends BaseController
     protected function formatValidationErrors(Validator $validator)
     {
         return [
-            'errors' => $validator->errors()->all(),
+            'errors' => $validator->errors()->getMessages(),
         ];
     }
 }
