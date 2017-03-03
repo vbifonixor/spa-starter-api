@@ -32,3 +32,16 @@ after_script:
     if [[ "$TRAVIS_PHP_VERSION" != '7.0' && "$TRAVIS_PHP_VERSION" != '7.1' ]]; then
       vendor/bin/test-reporter;
     f
+
+# Heroky deploy settings
+deploy:
+  provider: heroku
+  api_key:
+    secure: $HEROKU_API_KEY
+  on:
+    php: 7.0
+  run:
+    - composer require fzaninotto/faker --no-interaction
+    - composer dump-autoload --no-interaction
+    - php /app/artisan migrate:refresh --seed --force
+    - composer remove fzaninotto/faker
