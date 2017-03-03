@@ -43,7 +43,6 @@ class DatabaseServiceProvider extends ServiceProvider
         if ($this->fetchFromDatabaseUrl('path')) {
             return substr($this->fetchFromDatabaseUrl('path'), 1);
         }
-
     }
 
     /**
