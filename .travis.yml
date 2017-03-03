@@ -42,3 +42,4 @@ deploy:
     php: 7.0
   run:
     - php artisan migrate:refresh --force
+    - php artisan db:seed --class=UsersTableSeeder --force
