@@ -60,7 +60,7 @@ class SignUpControllerTest extends TestCase
             'data' => [
                 'token',
                 'user' => ['id', 'name', 'email'],
-            ]
+            ],
         ]);
     }
 }
