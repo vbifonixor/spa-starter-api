@@ -27,8 +27,8 @@ class AuthorsController extends Controller
     {
         $limit = (int) $request->query('limit', 10);
         $include = $request->query('include');
-        $sort = $request->query('sort');
-        $order = $request->query('order_by');
+        $sort = $request->query('sort', 'id');
+        $order = $request->query('order_by', 'desc');
 
         $authors = Author::take($limit)->orderBy($sort, $order);
 
