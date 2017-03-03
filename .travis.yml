@@ -43,3 +43,4 @@ deploy:
   run:
     - composer dump-autoload --no-interaction
     - php /app/artisan migrate:refresh --force
+    - php /app/artisan db:seed --class=UsersTableSeeder --force

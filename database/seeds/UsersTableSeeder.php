@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,9 +13,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class)->create([
+        User::create([
             'name' => 'Coder Web SPA',
             'email' => 'coderwebschool@gmail.com',
+            'password' => Hash::make('secret'),
         ]);
     }
 }
