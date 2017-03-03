@@ -33,7 +33,7 @@ after_script:
       vendor/bin/test-reporter;
     f
 
-# Heroky deploy settings
+# Heroku deploy settings
 deploy:
   provider: heroku
   api_key:
@@ -41,5 +41,6 @@ deploy:
   on:
     php: 7.0
   run:
+    - touch database/database.sqlite
     - php artisan migrate:refresh --force
     - php artisan db:seed --class=UsersTableSeeder --force
