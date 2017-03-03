@@ -15,7 +15,7 @@ class MeControllerTest extends TestCase
     {
         $this->json('GET', '/api/me');
 
-        $this->assertResponseStatus(400);
+        $this->assertResponseStatus(401);
         $this->seeJsonStructure([
             'errors' => [[]],
         ]);

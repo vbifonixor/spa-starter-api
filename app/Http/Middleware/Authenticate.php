@@ -36,7 +36,9 @@ class Authenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+            return response([
+                'errors' => ['Unauthorized, you should provide a valid access token.'],
+            ], 401);
         }
 
         return $next($request);
