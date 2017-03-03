@@ -29,7 +29,7 @@ class UpdateTest extends TestCase
 
         $this->assertResponseStatus(422);
         $this->seeJsonStructure([
-            'errors' => [[]],
+            'errors' => ['name'],
         ]);
     }
 

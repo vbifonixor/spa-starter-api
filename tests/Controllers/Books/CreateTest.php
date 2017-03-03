@@ -42,13 +42,13 @@ class CreateTest extends TestCase
     /**
      * @dataProvider invalidFieldsValuesProvider
      */
-    public function testIsValidatingFields($title, $author)
+    public function testIsValidatingFields($title, $author, $expectedErrors)
     {
         $this->json('POST', '/api/books', compact('title', 'author'));
 
         $this->assertResponseStatus(422);
         $this->seeJsonStructure([
-            'errors' => [[]],
+            'errors' => $expectedErrors,
         ]);
     }
 }

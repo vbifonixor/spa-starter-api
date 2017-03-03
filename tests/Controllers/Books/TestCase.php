@@ -15,8 +15,8 @@ abstract class TestCase extends BaseTestCase
     public function invalidFieldsValuesProvider()
     {
         return [
-            [null, null],
-            ['The Jedi Path', 99],
+            [null, null, ['title', 'author']],
+            ['The Jedi Path', 99, ['author']],
         ];
     }
 }

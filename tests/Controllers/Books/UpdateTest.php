@@ -57,13 +57,13 @@ class UpdateTest extends TestCase
     /**
      * @dataProvider invalidFieldsValuesProvider
      */
-    public function testIsValidatingFields($title, $author)
+    public function testIsValidatingFields($title, $author, $expectedErrors)
     {
         $this->json('PUT', '/api/books/1', compact('title', 'author'));
 
         $this->assertResponseStatus(422);
         $this->seeJsonStructure([
-            'errors' => [[]],
+            'errors' => $expectedErrors,
         ]);
     }
 }

@@ -15,6 +15,9 @@ class SignUpControllerTest extends TestCase
         $this->json('POST', '/api/signup');
 
         $this->assertResponseStatus(422);
+        $this->seeJsonStructure([
+            'errors' => ['name', 'email', 'password'],
+        ]);
     }
 
     public function testIsCheckingForValidEmailAddress()
