@@ -31,7 +31,7 @@ after_script:
   - |
     if [[ "$TRAVIS_PHP_VERSION" != '7.0' && "$TRAVIS_PHP_VERSION" != '7.1' ]]; then
       vendor/bin/test-reporter;
-    f
+    fi
 
 # Heroku deploy settings
 deploy:
