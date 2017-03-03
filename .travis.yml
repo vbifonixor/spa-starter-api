@@ -41,6 +41,6 @@ deploy:
   on:
     php: 7.0
   run:
-    - touch database/database.sqlite
+    - touch /app/database/database.sqlite
     - php artisan migrate:refresh --force
     - php artisan db:seed --class=UsersTableSeeder --force
