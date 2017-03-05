@@ -26,7 +26,7 @@ Sign up new users and return their data and access token.
 
 * **Success Response:**
   
-  * **Code:** 200 <br />
+  * **Code:** 201 CREATED <br />
     **Content:** <br />
 
     ``` json

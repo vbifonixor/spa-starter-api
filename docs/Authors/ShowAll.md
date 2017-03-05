@@ -34,7 +34,7 @@ Show all of the authors.
 
 * **Success Response:**
   
-  * **Code:** 200 <br />
+  * **Code:** 200 OK <br />
     **Content:** <br />
 
     ``` json

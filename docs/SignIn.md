@@ -25,7 +25,7 @@ Authenticate users by generating an access token based on their credentials.
 
 * **Success Response:**
   
-  * **Code:** 200 <br />
+  * **Code:** 200 OK <br />
     **Content:** <br />
 
     ``` json
