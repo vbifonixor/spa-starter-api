@@ -111,7 +111,7 @@ class Handler extends ExceptionHandler
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function makeJsonErrorResponse($message, $code)
+    protected function makeJsonErrorResponse($message, $code)
     {
         return new JsonResponse([
             'errors' => [$message],
