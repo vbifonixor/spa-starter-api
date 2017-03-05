@@ -1,6 +1,6 @@
 **Sign In**
 ----
-Sign in users by generating a new access token based on their credentials.
+Authenticate users by generating an access token based on their credentials.
 
 * **URL**
 
