@@ -1,10 +1,10 @@
-**Sign Up**
+**Sign In**
 ----
-Sign up new users and return their data and access token.
+Sign in users by generating a new access token based on their credentials.
 
 * **URL**
 
-  /api/signup
+  /api/auth/token
 
 * **Method:**
     
@@ -18,7 +18,6 @@ Sign up new users and return their data and access token.
 
   ``` json
   {
-    "name": "Anakin Skywalker",
     "email": "anakin@death.star",
     "password": "darkside"
   }
@@ -44,31 +43,21 @@ Sign up new users and return their data and access token.
  
 * **Error Response:**
 
-  * **Code:** 422 UNPROCESSABLE ENTRY <br />
+  * **Code:** 401 UNAUTHORIZED <br />
     **Content:** <br />
 
     ``` json
     {
-      "errors": {
-        "name": [
-          "The name field is required."
-        ],
-        "email": [
-          "The email field is required.",
-          "The email has already been taken."
-        ],
-        "password": [
-          "The password field is required."
-        ]
-      }
+      "errors": [
+        "Invalid credentials"
+      ]
     }
     ```
 
 * **Sample Call:**
 
   ``` bash
-  $ curl -X POST https://spa-starter-api.herokuapp.com/api/signup \
-    -d 'name=Anakin Skywalker' \
+  $ curl -X POST https://spa-starter-api.herokuapp.com/api/auth/token \
     -d 'email=anakin@death.star' \
     -d 'password=darkside'
   ```
