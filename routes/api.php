@@ -12,7 +12,9 @@
 */
 
 $app->get('/', function () use ($app) {
-    return $app->version();
+    return response()->json([
+        'version' => 'v1.0.0',
+    ], 200);
 });
 
 $app->post('/api/auth/token', 'AuthController@token');
