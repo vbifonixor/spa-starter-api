@@ -57,7 +57,7 @@ Authenticate users by generating an access token based on their credentials.
 * **Sample Call:**
 
   ``` bash
-  $ curl -X POST https://spa-starter-api.herokuapp.com/api/auth/token \
+  $ curl -X POST http://localhost:8000/api/auth/token \
     -d 'email=anakin@death.star' \
     -d 'password=darkside'
   ```

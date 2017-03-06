@@ -66,7 +66,7 @@ Creates a new author.
 * **Sample Call:**
 
   ``` bash
-  $ curl -X POST https://spa-starter-api.herokuapp.com/api/authors \
+  $ curl -X POST http://localhost:8000/api/authors \
     -d 'name=Anakin Skywalker' \
     -d 'token=your_access_token'
   ```

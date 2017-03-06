@@ -84,5 +84,5 @@ Show all of the authors.
 * **Sample Call:**
 
   ``` bash
-  $ curl -X GET https://spa-starter-api.herokuapp.com/api/authors?token=your_access_token
+  $ curl -X GET http://localhost:8000/api/authors?token=your_access_token
   ```

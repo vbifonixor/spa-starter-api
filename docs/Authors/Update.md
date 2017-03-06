@@ -12,7 +12,9 @@ Update a single author.
   
 *  **URL Params**
 
-   None
+   **Required:**
+
+   `id=[integer]`
 
 * **Data Params**
 
@@ -77,7 +79,7 @@ Update a single author.
 * **Sample Call:**
 
   ``` bash
-  $ curl -X PUT https://spa-starter-api.herokuapp.com/api/authors/1 \
+  $ curl -X PUT http://localhost:8000/api/authors/1 \
     -d 'name=Anakin Skywalker' \
     -d 'token=your_access_token'
   ```

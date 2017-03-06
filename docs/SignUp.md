@@ -67,7 +67,7 @@ Sign up new users and return their data and access token.
 * **Sample Call:**
 
   ``` bash
-  $ curl -X POST https://spa-starter-api.herokuapp.com/api/signup \
+  $ curl -X POST http://localhost:8000/api/signup \
     -d 'name=Anakin Skywalker' \
     -d 'email=anakin@death.star' \
     -d 'password=darkside'

@@ -51,5 +51,5 @@ Fetch the currently authenticated user.
 * **Sample Call:**
 
   ``` bash
-  $ curl -X GET https://spa-starter-api.herokuapp.com/api/me?token=your_access_token
+  $ curl -X GET http://localhost:8000/api/me?token=your_access_token
   ```

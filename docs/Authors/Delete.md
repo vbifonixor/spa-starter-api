@@ -1,6 +1,6 @@
-**Show Author**
+**Delete Author**
 ----
-Show a single author.
+Delete a single author.
 
 * **URL**
 
@@ -8,7 +8,7 @@ Show a single author.
 
 * **Method:**
     
-  `GET`
+  `DELETE`
   
 *  **URL Params**
 
@@ -18,27 +18,13 @@ Show a single author.
 
    `token=[string]`
 
-   **Optional:**
-
-   `include=books`
-
 * **Data Params**
 
   None
 
 * **Success Response:**
   
-  * **Code:** 200 OK <br />
-    **Content:** <br />
-
-    ``` json
-    {
-      "data": {
-        "id": 1,
-        "name": "Anakin Skywalker"
-      }
-    }
-    ```
+  * **Code:** 204 No Content <br />
  
 * **Error Response:**
 
@@ -67,5 +53,5 @@ Show a single author.
 * **Sample Call:**
 
   ``` bash
-  $ curl -X GET http://localhost:8000/api/authors/1?token=your_access_token
+  $ curl -X DELETE http://localhost:8000/api/authors/1?token=your_access_token
   ```
