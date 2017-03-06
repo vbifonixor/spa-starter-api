@@ -61,4 +61,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-code-quality]: https://codeclimate.com/github/coderwebschool/spa-starter-api/code
 [link-author]: https://github.com/flyingluscas
 [link-contributors]: ../../contributors
-[link-endpoits-doc]: ./docs
+[link-endpoits-doc]: ./docs/README.md
