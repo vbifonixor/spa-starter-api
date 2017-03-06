@@ -19,10 +19,10 @@ Update a single author.
 * **Data Params**
 
   ``` json
-  {
-    "name": "Anakin Skywalker",
-    "token": "your_access_token"
-  }
+    {
+        "name": "Anakin Skywalker",
+        "token": "your_access_token"
+    }
   ```
 
 * **Success Response:**
@@ -32,10 +32,10 @@ Update a single author.
 
     ``` json
     {
-      "data": {
-        "id": 1,
-        "name": "Anakin Skywalker"
-      }
+        "data": {
+            "id": 1,
+            "name": "Anakin Skywalker"
+        }
     }
     ```
  
@@ -46,9 +46,9 @@ Update a single author.
 
     ``` json
     {
-      "errors": [
-        "Not Found"
-      ]
+        "errors": [
+            "Not Found"
+        ]
     }
     ```
   
@@ -57,11 +57,11 @@ Update a single author.
 
     ``` json
     {
-      "errors": {
-        "name": [
-          "The name field is required."
-        ]
-      }
+        "errors": {
+            "name": [
+                "The name field is required."
+            ]
+        }
     }
     ```
   
@@ -70,9 +70,9 @@ Update a single author.
 
     ``` json
     {
-      "errors": [
-        "Unauthorized, you should provide a valid access token."
-      ]
+        "errors": [
+            "Unauthorized, you should provide a valid access token."
+        ]
     }
     ```
 

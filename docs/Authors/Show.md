@@ -33,10 +33,10 @@ Show a single author.
 
     ``` json
     {
-      "data": {
-        "id": 1,
-        "name": "Anakin Skywalker"
-      }
+        "data": {
+            "id": 1,
+            "name": "Anakin Skywalker"
+        }
     }
     ```
  
@@ -47,9 +47,9 @@ Show a single author.
 
     ``` json
     {
-      "errors": [
-        "Not Found"
-      ]
+        "errors": [
+            "Not Found"
+        ]
     }
     ```
   
@@ -58,9 +58,9 @@ Show a single author.
 
     ``` json
     {
-      "errors": [
-        "Unauthorized, you should provide a valid access token."
-      ]
+        "errors": [
+            "Unauthorized, you should provide a valid access token."
+        ]
     }
     ```
 

@@ -17,11 +17,11 @@ Creates a new book.
 * **Data Params**
 
   ``` json
-  {
-    "title": "The Jedi Path",
-    "author": "1",
-    "token": "your_access_token"
-  }
+    {
+        "title": "The Jedi Path",
+        "author": "1",
+        "token": "your_access_token"
+    }
   ```
 
 * **Success Response:**

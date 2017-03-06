@@ -39,32 +39,32 @@ Show all of the authors.
 
     ``` json
     {
-      "data": [
-        {
-          "id": 3,
-          "name": "Anakin Skywalker"
-        },
-        {
-          "id": 2,
-          "name": "R2-D2"
-        },
-        {
-          "id": 1,
-          "name": "C-3PO"
-        },
-      ],
-      "metadata": {
-        "pagination": {
-          "total": 6,
-          "per_page": 3,
-          "current_page": 1,
-          "last_page": 2,
-          "next_page_url": "/?page=2",
-          "prev_page_url": null,
-          "from": 1,
-          "to": 3
+        "data": [
+            {
+                "id": 3,
+                "name": "Anakin Skywalker"
+            },
+            {
+                "id": 2,
+                "name": "R2-D2"
+            },
+            {
+                "id": 1,
+                "name": "C-3PO"
+            },
+        ],
+        "metadata": {
+            "pagination": {
+                "total": 6,
+                "per_page": 3,
+                "current_page": 1,
+                "last_page": 2,
+                "next_page_url": "/?page=2",
+                "prev_page_url": null,
+                "from": 1,
+                "to": 3
+            }
         }
-      }
     }
     ```
  
@@ -75,9 +75,9 @@ Show all of the authors.
 
     ``` json
     {
-      "errors": [
-        "Unauthorized, you should provide a valid access token."
-      ]
+        "errors": [
+            "Unauthorized, you should provide a valid access token."
+        ]
     }
     ```
 

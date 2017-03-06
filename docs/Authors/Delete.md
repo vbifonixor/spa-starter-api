@@ -33,9 +33,9 @@ Delete a single author.
 
     ``` json
     {
-      "errors": [
-        "Not Found"
-      ]
+        "errors": [
+            "Not Found"
+        ]
     }
     ```
   
@@ -44,9 +44,9 @@ Delete a single author.
 
     ``` json
     {
-      "errors": [
-        "Unauthorized, you should provide a valid access token."
-      ]
+        "errors": [
+            "Unauthorized, you should provide a valid access token."
+        ]
     }
     ```
 
