@@ -46,9 +46,9 @@ Update a single author.
 
     ``` json
     {
-      "errors": {
+      "errors": [
         "Not Found"
-      }
+      ]
     }
     ```
   

@@ -1,10 +1,10 @@
-**Delete Author**
+**Delete Book**
 ----
-Delete a single author.
+Delete a single book.
 
 * **URL**
 
-  /api/authors/:id
+  /api/books/:id
 
 * **Method:**
     
@@ -33,9 +33,9 @@ Delete a single author.
 
     ``` json
     {
-      "errors": [
-        "Not Found"
-      ]
+        "errors": [
+            "Not Found"
+        ]
     }
     ```
   
@@ -44,14 +44,14 @@ Delete a single author.
 
     ``` json
     {
-      "errors": [
-        "Unauthorized, you should provide a valid access token."
-      ]
+        "errors": [
+            "Unauthorized, you should provide a valid access token."
+        ]
     }
     ```
 
 * **Sample Call:**
 
   ``` bash
-  $ curl -X DELETE http://localhost:8000/api/authors/1?token=your_access_token
+  $ curl -X DELETE http://localhost:8000/api/books/1?token=your_access_token
   ```

@@ -1,10 +1,10 @@
-**Show Author**
+**Show Book**
 ----
-Show a single author.
+Show a single book.
 
 * **URL**
 
-  /api/authors/:id
+  /api/books/:id
 
 * **Method:**
     
@@ -20,7 +20,7 @@ Show a single author.
 
    **Optional:**
 
-   `include=books`
+   `include=author`
 
 * **Data Params**
 
@@ -33,10 +33,10 @@ Show a single author.
 
     ``` json
     {
-      "data": {
-        "id": 1,
-        "name": "Anakin Skywalker"
-      }
+        "data": {
+            "id": 1,
+            "title": "The Jedi Path"
+        }
     }
     ```
  
@@ -47,9 +47,9 @@ Show a single author.
 
     ``` json
     {
-      "errors": [
-        "Not Found"
-      ]
+        "errors": [
+            "Not Found"
+        ]
     }
     ```
   
@@ -58,14 +58,14 @@ Show a single author.
 
     ``` json
     {
-      "errors": [
-        "Unauthorized, you should provide a valid access token."
-      ]
+        "errors": [
+            "Unauthorized, you should provide a valid access token."
+        ]
     }
     ```
 
 * **Sample Call:**
 
   ``` bash
-  $ curl -X GET http://localhost:8000/api/authors/1?token=your_access_token
+  $ curl -X GET http://localhost:8000/api/books/1?token=your_access_token
   ```
