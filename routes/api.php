@@ -21,7 +21,6 @@ $app->post('/api/auth/token', 'AuthController@token');
 
 $app->post('/api/signup', 'SignUpController@create');
 
-
 $app->group([
     'middleware' => 'auth',
 ], function () use ($app) {
