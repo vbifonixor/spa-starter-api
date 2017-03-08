@@ -38,6 +38,11 @@ class ResponseFactory
         return $this->statusCode;
     }
 
+    public function json($data = null, array $headers = [])
+    {
+        return new JsonResponse($data, $this->statusCode, $headers);
+    }
+
     /**
      * Make a JSON error response.
      *
@@ -48,12 +53,12 @@ class ResponseFactory
     public function withError(...$messages)
     {
         if (! $messages) {
-            return new JsonResponse(null, $this->statusCode);
+            return $this->json();
         }
 
-        return new JsonResponse([
+        return $this->json([
             'errors' => $messages,
-        ], $this->statusCode);
+        ]);
     }
 
     /**

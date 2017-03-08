@@ -17,6 +17,27 @@ class ResponseFactoryTest extends TestCase
         $this->assertEquals(418, $response->statusCode());
     }
 
+    public function testMakeSimpleJsonResponse()
+    {
+        $statusCode = 418;
+        $body = 'You sexy thing!';
+        $headers = ['Ned' => 'Stark'];
+
+        $factory = new ResponseFactory;
+        $response = $factory->withStatusCode($statusCode)->json($body, $headers);
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals($statusCode, $response->status());
+        $this->assertEquals($body, $response->getData(true));
+
+        foreach ($headers as $header => $value) {
+            $this->assertTrue(
+                $response->headers->has($header),
+                'Failed to assert that the header "'.$header.'" is present in the returned response.'
+            );
+        }
+    }
+
     public function testMakeErrorResponse()
     {
         $message = "I'm a teapot";
