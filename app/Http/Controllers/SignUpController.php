@@ -32,11 +32,6 @@ class SignUpController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        return response()->json([
-            'data' => [
-                'user' => $user,
-                'token' => $token,
-            ],
-        ], 201);
+        return $this->response->withCreated(compact('user', 'token'));
     }
 }
