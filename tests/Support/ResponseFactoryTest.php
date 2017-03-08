@@ -24,7 +24,7 @@ class ResponseFactoryTest extends TestCase
         $headers = ['Ned' => 'Stark'];
 
         $factory = new ResponseFactory;
-        $response = $factory->withStatusCode($statusCode)->json($body, $headers);
+        $response = $factory->withStatusCode($statusCode)->withJson($body, $headers);
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals($statusCode, $response->status());

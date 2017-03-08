@@ -38,7 +38,15 @@ class ResponseFactory
         return $this->statusCode;
     }
 
-    public function json($data = null, array $headers = [])
+    /**
+     * Make a JSON response.
+     *
+     * @param  mixed  $data
+     * @param  array  $headers
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function withJson($data = null, array $headers = [])
     {
         return new JsonResponse($data, $this->statusCode, $headers);
     }
@@ -53,10 +61,10 @@ class ResponseFactory
     public function withError(...$messages)
     {
         if (! $messages) {
-            return $this->json();
+            return $this->withJson();
         }
 
-        return $this->json([
+        return $this->withJson([
             'errors' => $messages,
         ]);
     }
