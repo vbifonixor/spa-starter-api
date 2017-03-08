@@ -66,4 +66,16 @@ class ResponseFactoryTest extends TestCase
             'errors' => ['Something went really wrong!']
         ], $response->getData(true));
     }
+
+    public function testMakeUnauthorizedErrorResponse()
+    {
+        $factory = new ResponseFactory;
+        $response = $factory->withUnauthorized('You shall not pass!');
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals(401, $response->status());
+        $this->assertEquals([
+            'errors' => ['You shall not pass!']
+        ], $response->getData(true));
+    }
 }

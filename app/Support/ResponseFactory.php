@@ -78,8 +78,27 @@ class ResponseFactory
         return $this->withStatusCode(Response::HTTP_NO_CONTENT)->withError();
     }
 
+    /**
+     * Make a 500 error response.
+     *
+     * @param  string $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function withInternalServerError($message = 'Internal Server Error')
     {
         return $this->withStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR)->withError($message);
+    }
+
+    /**
+     * Make a 401 error response.
+     *
+     * @param  string $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function withUnauthorized($message = 'Unauthorized')
+    {
+        return $this->withStatusCode(Response::HTTP_UNAUTHORIZED)->withError($message);
     }
 }
