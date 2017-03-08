@@ -63,18 +63,23 @@ class ResponseFactory
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function withNotFound($message = 'Not found')
+    public function withNotFound($message = 'Not Found')
     {
         return $this->withStatusCode(Response::HTTP_NOT_FOUND)->withError($message);
     }
 
     /**
-     * Make a 204 error response.
+     * Make a 204 JSON response.
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function withNoContent()
     {
         return $this->withStatusCode(Response::HTTP_NO_CONTENT)->withError();
+    }
+
+    public function withInternalServerError($message = 'Internal Server Error')
+    {
+        return $this->withStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR)->withError($message);
     }
 }
