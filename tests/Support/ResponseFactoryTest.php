@@ -38,6 +38,31 @@ class ResponseFactoryTest extends TestCase
         }
     }
 
+    public function testMakeResourceResponse()
+    {
+        $factory = new ResponseFactory;
+        $response = $factory->withResource(['some data']);
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals(200, $response->status());
+        $this->assertEquals([
+            'data' => ['some data'],
+        ], $response->getData(true));
+    }
+
+    public function testMakeResourceResponseWithMetadata()
+    {
+        $factory = new ResponseFactory;
+        $response = $factory->withResource(['some data'], ['some metadata']);
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals(200, $response->status());
+        $this->assertEquals([
+            'data' => ['some data'],
+            'metadata' => ['some metadata'],
+        ], $response->getData(true));
+    }
+
     public function testMakeErrorResponse()
     {
         $message = "I'm a teapot";
@@ -96,6 +121,30 @@ class ResponseFactoryTest extends TestCase
         $this->assertEquals(401, $response->status());
         $this->assertEquals([
             'errors' => ['You shall not pass!'],
+        ], $response->getData(true));
+    }
+
+    public function testMakeTooManyRequestsErrorResponse()
+    {
+        $factory = new ResponseFactory;
+        $response = $factory->withTooManyRequests('You stop that shit right now!');
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals(429, $response->status());
+        $this->assertEquals([
+            'errors' => ['You stop that shit right now!'],
+        ], $response->getData(true));
+    }
+
+    public function testMakeCreatedResponse()
+    {
+        $factory = new ResponseFactory;
+        $response = $factory->withCreated(['resource']);
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals(201, $response->status());
+        $this->assertEquals([
+            'data' => ['resource'],
         ], $response->getData(true));
     }
 }

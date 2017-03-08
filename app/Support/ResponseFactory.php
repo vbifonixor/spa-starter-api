@@ -52,6 +52,28 @@ class ResponseFactory
     }
 
     /**
+     * Make a resource response.
+     *
+     * @param  mixed      $resource
+     * @param  array|null $metadata
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function withResource($resource, array $metadata = null)
+    {
+        if ($metadata) {
+            return $this->withJson([
+                'data' => $resource,
+                'metadata' => $metadata,
+            ]);
+        }
+
+        return $this->withJson([
+            'data' => $resource,
+        ]);
+    }
+
+    /**
      * Make a JSON error response.
      *
      * @param  string|null ...$messages
@@ -113,5 +135,29 @@ class ResponseFactory
     public function withUnauthorized($message = 'Unauthorized')
     {
         return $this->withStatusCode(Response::HTTP_UNAUTHORIZED)->withError($message);
+    }
+
+    /**
+     * Make a 429 error response.
+     *
+     * @param  string $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function withTooManyRequests($message = 'Too Many Requests')
+    {
+        return $this->withStatusCode(Response::HTTP_TOO_MANY_REQUESTS)->withError($message);
+    }
+
+    /**
+     * Make a 201 JSON response.
+     *
+     * @param  mixed $resource
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function withCreated($resource)
+    {
+        return $this->withStatusCode(Response::HTTP_CREATED)->withResource($resource);
     }
 }
