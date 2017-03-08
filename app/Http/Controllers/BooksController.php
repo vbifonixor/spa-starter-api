@@ -9,14 +9,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class BooksController extends Controller
 {
     /**
-     * Creates a new class instance.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @param  Request $request
@@ -40,12 +32,9 @@ class BooksController extends Controller
 
         $pagination = new LengthAwarePaginator($books, Book::count(), $limit);
 
-        return response()->json([
-            'data' => $books,
-            'metadata' => [
-                'pagination' => array_except($pagination->toArray(), 'data'),
-            ],
-        ], 200);
+        return $this->response->withResource($books, [
+            'pagination' => array_except($pagination->toArray(), 'data'),
+        ]);
     }
 
     /**
@@ -70,9 +59,7 @@ class BooksController extends Controller
 
         $book->load('author');
 
-        return response()->json([
-            'data' => $book,
-        ], 201);
+        return $this->response->withCreated($book);
     }
 
     /**
@@ -89,14 +76,10 @@ class BooksController extends Controller
         $book = ($include) ? Book::with($include)->find($id) : Book::find($id);
 
         if (! $book) {
-            return response()->json([
-                'errors' => ['Book not found.'],
-            ], 404);
+            return $this->response->withNotFound();
         }
 
-        return response()->json([
-            'data' => $book,
-        ], 200);
+        return $this->response->withResource($book);
     }
 
     /**
@@ -117,9 +100,7 @@ class BooksController extends Controller
         $book = Book::find($id);
 
         if (! $book) {
-            return response()->json([
-                'errors' => ['Book not found.'],
-            ], 404);
+            return $this->response->withNotFound();
         }
 
         $book->fill($request->all())
@@ -129,9 +110,7 @@ class BooksController extends Controller
 
         $book->load('author');
 
-        return response()->json([
-            'data' => $book,
-        ], 200);
+        return $this->response->withResource($book);
     }
 
     /**
@@ -146,13 +125,11 @@ class BooksController extends Controller
         $book = Book::find($id);
 
         if (! $book) {
-            return response()->json([
-                'errors' => ['Book not found.'],
-            ], 404);
+            return $this->response->withNotFound();
         }
 
         $book->delete();
 
-        return response()->json([], 204);
+        return $this->response->withNoContent();
     }
 }
