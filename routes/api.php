@@ -21,11 +21,12 @@ $app->post('/api/auth/token', 'AuthController@token');
 
 $app->post('/api/signup', 'SignUpController@create');
 
-$app->get('/api/me', 'MeController@show');
 
 $app->group([
     'middleware' => 'auth',
 ], function () use ($app) {
+    $app->get('/api/me', 'MeController@show');
+
     $app->group([
         'prefix' => '/api/authors',
     ], function () use ($app) {
