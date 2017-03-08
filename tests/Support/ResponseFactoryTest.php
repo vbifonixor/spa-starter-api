@@ -51,7 +51,6 @@ class ResponseFactoryTest extends TestCase
         $this->assertEquals([
             'errors' => [$message],
         ], $response->getData(true));
-
     }
 
     public function testMakeNotFoundErrorResponse()
@@ -84,7 +83,7 @@ class ResponseFactoryTest extends TestCase
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(500, $response->status());
         $this->assertEquals([
-            'errors' => ['Something went really wrong!']
+            'errors' => ['Something went really wrong!'],
         ], $response->getData(true));
     }
 
@@ -96,7 +95,7 @@ class ResponseFactoryTest extends TestCase
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(401, $response->status());
         $this->assertEquals([
-            'errors' => ['You shall not pass!']
+            'errors' => ['You shall not pass!'],
         ], $response->getData(true));
     }
 }

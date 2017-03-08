@@ -10,14 +10,14 @@ class ResponseFactory
     /**
      * HTTP status code.
      *
-     * @var integer
+     * @var int
      */
     protected $statusCode = Response::HTTP_OK;
 
     /**
      * Set the response HTTP status code.
      *
-     * @param  integer $code
+     * @param  int $code
      *
      * @return self
      */
@@ -31,7 +31,7 @@ class ResponseFactory
     /**
      * Get the HTTP status code.
      *
-     * @return integer
+     * @return int
      */
     public function statusCode()
     {
