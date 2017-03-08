@@ -9,14 +9,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class AuthorsController extends Controller
 {
     /**
-     * Creates a new class instance.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @param  Request $request
@@ -40,12 +32,9 @@ class AuthorsController extends Controller
 
         $pagination = new LengthAwarePaginator($authors, Author::count(), $limit);
 
-        return response()->json([
-            'data' => $authors,
-            'metadata' => [
-                'pagination' => array_except($pagination->toArray(), 'data'),
-            ],
-        ], 200);
+        return $this->response->withResource($authors, [
+            'pagination' => array_except($pagination->toArray(), 'data'),
+        ]);
     }
 
     /**
@@ -65,9 +54,7 @@ class AuthorsController extends Controller
             'name' => $request->name,
         ]);
 
-        return response()->json([
-            'data' => $author,
-        ], 201);
+        return $this->response->withCreated($author);
     }
 
     /**
@@ -84,14 +71,10 @@ class AuthorsController extends Controller
         $author = ($include) ? Author::with($include)->find($id) : Author::find($id);
 
         if (! $author) {
-            return response()->json([
-                'errors' => ['Not found.'],
-            ], 404);
+            return $this->response->withNotFound();
         }
 
-        return response()->json([
-            'data' => $author,
-        ], 200);
+        return $this->response->withResource($author);
     }
 
     /**
@@ -111,18 +94,14 @@ class AuthorsController extends Controller
         $author = Author::find($id);
 
         if (! $author) {
-            return response()->json([
-                'errors' => ['Not found.'],
-            ], 404);
+            return $this->response->withNotFound();
         }
 
         $author->fill([
             'name' => $request->name,
         ])->save();
 
-        return response()->json([
-            'data' => $author,
-        ], 200);
+        return $this->response->withResource($author);
     }
 
     /**
@@ -137,13 +116,11 @@ class AuthorsController extends Controller
         $author = Author::find($id);
 
         if (! $author) {
-            return response()->json([
-                'errors' => ['Not found.'],
-            ], 404);
+            return $this->response->withNotFound();
         }
 
         $author->delete();
 
-        return response()->json(null, 204);
+        return $this->response->withNoContent();
     }
 }

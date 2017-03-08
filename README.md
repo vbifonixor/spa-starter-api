@@ -24,7 +24,28 @@ SPA Starter Pack API written in Lumen 5.4
 - Start the server `$ php -S localhost:8000 -t public`
 - Visit **http://localhost:8000**
 
-> See the full documentation of the [API endpoints here][link-endpoits-doc].
+
+## Resources
+
+- [Sign In](./docs/SignIn.md)
+- [Sign Up](./docs/SignUp.md)
+- [Show Me](./docs/ShowMe.md)
+
+**Authors**
+
+- [Show All](./docs/Authors/ShowAll.md)
+- [Create](./docs/Authors/Create.md)
+- [Show](./docs/Authors/Show.md)
+- [Update](./docs/Authors/Update.md)
+- [Delete](./docs/Authors/Delete.md)
+
+**Books**
+
+- [Show All](./docs/Books/ShowAll.md)
+- [Create](./docs/Books/Create.md)
+- [Show](./docs/Books/Show.md)
+- [Update](./docs/Books/Update.md)
+- [Delete](./docs/Books/Delete.md)
 
 ## Contributing
 
@@ -61,4 +82,3 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-code-quality]: https://codeclimate.com/github/coderwebschool/spa-starter-api/code
 [link-author]: https://github.com/flyingluscas
 [link-contributors]: ../../contributors
-[link-endpoits-doc]: ./docs/README.md
