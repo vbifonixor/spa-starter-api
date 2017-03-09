@@ -1,21 +1,21 @@
 ## Resources
 
-- [Sign In](./docs/SignIn.md)
-- [Sign Up](./docs/SignUp.md)
-- [Show Me](./docs/ShowMe.md)
+- [Sign In](./SignIn.md)
+- [Sign Up](./SignUp.md)
+- [Show Me](./ShowMe.md)
 
 **Authors**
 
-- [Show All](./docs/Authors/ShowAll.md)
-- [Create](./docs/Authors/Create.md)
-- [Show](./docs/Authors/Show.md)
-- [Update](./docs/Authors/Update.md)
-- [Delete](./docs/Authors/Delete.md)
+- [Show All](./Authors/ShowAll.md)
+- [Create](./Authors/Create.md)
+- [Show](./Authors/Show.md)
+- [Update](./Authors/Update.md)
+- [Delete](./Authors/Delete.md)
 
 **Books**
 
-- [Show All](./docs/Books/ShowAll.md)
-- [Create](./docs/Books/Create.md)
-- [Show](./docs/Books/Show.md)
-- [Update](./docs/Books/Update.md)
-- [Delete](./docs/Books/Delete.md)
+- [Show All](./Books/ShowAll.md)
+- [Create](./Books/Create.md)
+- [Show](./Books/Show.md)
+- [Update](./Books/Update.md)
+- [Delete](./Books/Delete.md)
