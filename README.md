@@ -30,7 +30,7 @@ SPA Starter Pack API written in Lumen 5.4
 **Using Docker**
 
 - Start docker `$ docker-compose up -d`
-- Uncomment and set the database variables at the **.env** file.
+- Uncomment the database variables at the **.env** file.
 - Install composer dependencies `$ docker-compose run app composer install`
 - Generate a JWT secret key `$ docker-compose run app php artisan jwt:secret`
 - Migrate the database and run the seeders `$ docker-compose run app php artisan migrate --seed`
