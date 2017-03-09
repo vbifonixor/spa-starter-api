@@ -11,19 +11,31 @@ SPA Starter Pack API written in Lumen 5.4
 
 - API written in [Lumen 5.4](https://github.com/laravel/lumen/tree/v5.4.0)
 - Authentication using [JWT](https://github.com/tymondesigns/jwt-auth) (JSON Web Token)
+- Development environment using [Ambientum](https://github.com/codecasts/ambientum) (Docker)
 
 ## Up and Running
 
-- Clone the project `$ git clone git@github.com:coderwebschool/spa-starter-api.git`
+- Clone this repository `$ git clone git@github.com:coderwebschool/spa-starter-api.git`
 - Create the env file `$ cp .env.example .env`
+- Generate a **random string with 32 characters** for the **APP_KEY** variable on your **.env** file.
+
+**Using PHP built-in server**
+
 - Create the database file `$ touch database/database.sqlite`
 - Install composer dependencies `$ composer install`
-- Generate a **random string with 32 characters** for the **APP_KEY** variable on your **.env** file.
 - Generate a JWT secret key `$ php artisan jwt:secret`
 - Migrate the database and run the seeders `$ php artisan migrate --seed`
 - Start the server `$ php -S localhost:8000 -t public`
-- Visit **http://localhost:8000**
 
+**Using Docker**
+
+- Start docker `$ docker-compose up -d`
+- Uncomment and set the database variables at the **.env** file.
+- Install composer dependencies `$ docker-compose run app composer install`
+- Generate a JWT secret key `$ docker-compose run app php artisan jwt:secret`
+- Migrate the database and run the seeders `$ docker-compose run app php artisan migrate --seed`
+
+Visit [http://localhost:8000](http://localhost:8000)
 
 ## Resources
 
