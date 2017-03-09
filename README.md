@@ -5,7 +5,7 @@
 [![Coverage Status][ico-code-climate]][link-code-climate]
 [![Quality Score][ico-code-quality]][link-code-quality]
 
-SPA Starter Pack API is written in Lumen 5.4, you can see a fully functional [demo here](https://spa-starter-api.herokuapp.com), you can also see the (API documentation here)[link-docs].
+SPA Starter Pack API is written in Lumen 5.4, you can see a fully functional [demo here](https://spa-starter-api.herokuapp.com), you can also see the [![API documentation here]][link-docs].
 
 ## Features
 
