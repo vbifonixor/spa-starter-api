@@ -17,10 +17,10 @@ class BooksController extends Controller
      */
     public function index(Request $request)
     {
-        $limit = (int) $request->query('limit', 10);
-        $include = $request->query('include');
-        $sort = $request->query('sort', 'id');
-        $order = $request->query('order_by', 'desc');
+        $limit = $this->parameters->limit(10);
+        $include = $this->parameters->include();
+        $sort = $this->parameters->sortBy('id');
+        $order = $this->parameters->orderBy('desc');
 
         $books = Book::take($limit)->orderBy($sort, $order);
 
@@ -72,7 +72,7 @@ class BooksController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $include = $request->query('include');
+        $include = $this->parameters->include();
         $book = ($include) ? Book::with($include)->find($id) : Book::find($id);
 
         if (! $book) {

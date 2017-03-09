@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Support\ResponseFactory;
+use App\Support\QueryParameterBag;
 use Illuminate\Validation\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -16,13 +17,21 @@ class Controller extends BaseController
     protected $response;
 
     /**
+     * Query parameters bag.
+     *
+     * @var \App\Support\QueryParameterBag
+     */
+    protected $parameters;
+
+    /**
      * Creates a new controller instance.
      *
      * @param ResponseFactory $response
      */
-    public function __construct(ResponseFactory $response)
+    public function __construct(ResponseFactory $response, QueryParameterBag $parameters)
     {
         $this->response = $response;
+        $this->parameters = $parameters;
     }
 
     /**

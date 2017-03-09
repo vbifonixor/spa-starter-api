@@ -17,10 +17,10 @@ class AuthorsController extends Controller
      */
     public function index(Request $request)
     {
-        $limit = (int) $request->query('limit', 10);
-        $include = $request->query('include');
-        $sort = $request->query('sort', 'id');
-        $order = $request->query('order_by', 'desc');
+        $limit = $this->parameters->limit(10);
+        $include = $this->parameters->include();
+        $sort = $this->parameters->sortBy('id');
+        $order = $this->parameters->orderBy('desc');
 
         $authors = Author::take($limit)->orderBy($sort, $order);
 
@@ -67,7 +67,7 @@ class AuthorsController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $include = $request->query('include');
+        $include = $this->parameters->include();
         $author = ($include) ? Author::with($include)->find($id) : Author::find($id);
 
         if (! $author) {
