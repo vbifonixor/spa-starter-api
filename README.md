@@ -54,7 +54,7 @@ SPA Starter Pack API written in Lumen 5.4
 - Write your code, comment your code, test your code
 - Commit your changes `$ git commit -am 'Add some feature'`
 - Push to the branch `$ git push origin feature/my-new-feature`
-- Submit a pull request to develop branch
+- Submit a pull request to master branch
 
 ## Testing
 
