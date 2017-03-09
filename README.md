@@ -5,7 +5,7 @@
 [![Coverage Status][ico-code-climate]][link-code-climate]
 [![Quality Score][ico-code-quality]][link-code-quality]
 
-SPA Starter Pack API is written in Lumen 5.4, you can see a fully functional [demo here](https://spa-starter-api.herokuapp.com), you can also see the [![API documentation here]][link-docs].
+SPA Starter Pack API is written in Lumen 5.4, you can see a fully functional [demo here](https://spa-starter-api.herokuapp.com), you can also see the [API documentation here][link-docs].
 
 ## Features
 
@@ -94,4 +94,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-code-quality]: https://codeclimate.com/github/coderwebschool/spa-starter-api/code
 [link-author]: https://github.com/flyingluscas
 [link-contributors]: ../../contributors
-[link-docs] ./docs/README.md
+[link-docs]: ./docs/README.md
