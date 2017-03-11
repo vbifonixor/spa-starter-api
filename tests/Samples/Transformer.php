@@ -9,7 +9,7 @@ class Transformer extends TransformerAbstract
     public function transform($data)
     {
         return [
-            'status' => (bool) $data['status'],
+            'status' => $data['status'] ? 'OK' : 'NO',
         ];
     }
 }

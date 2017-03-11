@@ -31,7 +31,7 @@ class TransformerHandlerTest extends TestCase
 
         $this->assertEquals([
             'data' => [
-                'status' => false,
+                'status' => 'NO',
             ],
         ], $data);
     }
@@ -46,9 +46,9 @@ class TransformerHandlerTest extends TestCase
 
         $this->assertEquals([
             'data' => [
-                ['status' => false],
-                ['status' => true],
-                ['status' => false],
+                ['status' => 'NO'],
+                ['status' => 'OK'],
+                ['status' => 'NO'],
             ],
         ], $data);
     }
@@ -59,7 +59,7 @@ class TransformerHandlerTest extends TestCase
             ->setMethods(['count'])
             ->getMockForAbstractClass();
 
-        $transform = $this->transform->withPaginator();
+        $transform = $this->transform->usePaginatorAdapter();
 
         $this->assertInstanceOf(TransformerHandler::class, $transform);
 

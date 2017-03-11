@@ -9,8 +9,9 @@ use League\Fractal\TransformerAbstract;
 use League\Fractal\Resource\ResourceAbstract;
 use League\Fractal\Serializer\SerializerAbstract;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use App\Support\Contracts\TransformerHandler as TransformerHandlerContract;
 
-class TransformerHandler
+class TransformerHandler implements TransformerHandlerContract
 {
     /**
      * Fracal manager.
@@ -77,7 +78,7 @@ class TransformerHandler
      *
      * @return self
      */
-    public function withPaginator()
+    public function usePaginatorAdapter()
     {
         $this->usePaginator = true;
 
