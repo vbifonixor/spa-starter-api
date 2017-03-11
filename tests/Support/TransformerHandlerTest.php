@@ -2,67 +2,71 @@
 
 namespace Tests\Support;
 
-use League\Fractal\Scope;
 use League\Fractal\Manager;
+use Tests\Samples\Transformer;
 use App\Support\TransformerHandler;
-use League\Fractal\TransformerAbstract;
 use PHPUnit_Framework_TestCase as TestCase;
-use League\Fractal\Resource\ResourceAbstract;
-use League\Fractal\Serializer\SerializerAbstract;
+use League\Fractal\Serializer\DataArraySerializer;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class TransformerHandlerTest extends TestCase
 {
-    public function testCanTransformSingleItem()
-    {
-        $transformer = $this->getMockForAbstractClass(TransformerAbstract::class);
-        $transform = $this->getMockForTransformerHandler([
-            'status' => false,
-        ]);
+    /**
+     * Transformer handler.
+     *
+     * @var \App\Support\TransformerHandler
+     */
+    protected $transform;
 
-        $transformed = $transform->item([
-            'status' => 0,
-        ], $transformer);
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->transform = new TransformerHandler(new Manager, new DataArraySerializer);
+    }
+
+    public function testCanTransformItem()
+    {
+        $data = $this->transform->item(['status' => 0], new Transformer);
 
         $this->assertEquals([
-            'status' => false,
-        ], $transformed);
+            'data' => [
+                'status' => false,
+            ],
+        ], $data);
     }
 
     public function testCanTransformCollection()
     {
-        $collection = [
-            [0], [1], [0],
-        ];
-
-        $transformer = $this->getMockForAbstractClass(TransformerAbstract::class);
-        $transform = $this->getMockForTransformerHandler([
-            [false, true, false],
-        ]);
-
-        $transformed = $transform->collection($collection, $transformer);
+        $data = $this->transform->collection([
+            ['status' => 0],
+            ['status' => 1],
+            ['status' => 0],
+        ], new Transformer);
 
         $this->assertEquals([
-            [false, true, false],
-        ], $transformed);
+            'data' => [
+                ['status' => false],
+                ['status' => true],
+                ['status' => false],
+            ],
+        ], $data);
     }
 
-    protected function getMockForTransformerHandler(array $expected = [])
+    public function testCanTransformCollectionWithPagination()
     {
-        $scope = $this->getMockBuilder(Scope::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $paginator = $this->getMockBuilder(LengthAwarePaginator::class)
+            ->setMethods(['count'])
+            ->getMockForAbstractClass();
 
-        $scope->expects($this->once())
-            ->method('toArray')
-            ->will($this->returnValue($expected));
+        $transform = $this->transform->withPaginator();
 
-        $fractal = $this->createMock(Manager::class);
-        $fractal->expects($this->once())
-            ->method('createData')
-            ->will($this->returnValue($scope));
+        $this->assertInstanceOf(TransformerHandler::class, $transform);
 
-        $serializer = $this->getMockForAbstractClass(SerializerAbstract::class);
+        $data = $transform->collection($paginator, new Transformer);
 
-        return new TransformerHandler($fractal, $serializer);
+        $this->assertArraySubset([
+            'meta' => ['pagination' => []],
+        ], $data);
     }
 }

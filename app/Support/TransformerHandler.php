@@ -6,19 +6,28 @@ use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
 use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
+use League\Fractal\Resource\ResourceAbstract;
 use League\Fractal\Serializer\SerializerAbstract;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class TransformerHandler
 {
     /**
-     * Fractal manager.
+     * Fracal manager.
      *
      * @var \League\Fractal\Manager
      */
     protected $fractal;
 
     /**
-     * Creates a new instance of the transformer handler.
+     * Use pagination.
+     *
+     * @var bool
+     */
+    protected $usePaginator = false;
+
+    /**
+     * Creates a new transformer handler instance.
      *
      * @param Manager            $fractal
      * @param SerializerAbstract $serializer
@@ -40,7 +49,8 @@ class TransformerHandler
     public function item($data, TransformerAbstract $transformer)
     {
         $resource = new Item($data, $transformer);
-        return $this->fractal->createData($resource)->toArray();
+
+        return $this->transformData($resource);
     }
 
     /**
@@ -54,6 +64,35 @@ class TransformerHandler
     public function collection($data, TransformerAbstract $transformer)
     {
         $resource = new Collection($data, $transformer);
+
+        if ($this->usePaginator) {
+            $resource->setPaginator(new IlluminatePaginatorAdapter($data));
+        }
+
+        return $this->transformData($resource);
+    }
+
+    /**
+     * Use a paginator adapter.
+     *
+     * @return self
+     */
+    public function withPaginator()
+    {
+        $this->usePaginator = true;
+
+        return $this;
+    }
+
+    /**
+     * Transform resource and convert it into an array.
+     *
+     * @param  ResourceAbstract $resource
+     *
+     * @return array
+     */
+    protected function transformData(ResourceAbstract $resource)
+    {
         return $this->fractal->createData($resource)->toArray();
     }
 }
