@@ -13,7 +13,7 @@ abstract class TestCase extends LumenTestCase
      *
      * @var array
      */
-    private $testingHelpers = [
+    private $testingHelpersMethods = [
         WithoutMiddleware::class => 'disableMiddlewareForAllTests',
     ];
 
@@ -43,7 +43,7 @@ abstract class TestCase extends LumenTestCase
     {
         $uses = array_flip(class_uses_recursive(get_class($this)));
 
-        foreach ($this->testingHelpers as $helper => $method) {
+        foreach ($this->testingHelpersMethods as $helper => $method) {
             if (! array_key_exists($helper, $uses)) {
                 continue;
             }
