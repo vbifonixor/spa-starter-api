@@ -24,8 +24,10 @@ class ResponseFactoryTest extends TestCase
     {
         parent::setUp();
 
-        $handler = new TransformerHandler(new Manager, new DataArraySerializer);
-        $this->response = new ResponseFactory($handler);
+        $this->response = new ResponseFactory;
+        $this->response->setTransformerHandler(
+            new TransformerHandler(new Manager, new DataArraySerializer)
+        );
     }
 
     public function testCanSetTheStatusCode()
