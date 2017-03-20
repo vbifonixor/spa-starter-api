@@ -29,12 +29,10 @@ class CreateTest extends TestCase
         ]);
         $this->seeJson([
             'title' => $title,
-            'name' => $author->name,
         ]);
         $this->seeJsonStructure([
             'data' => [
                 'id', 'title',
-                'author' => ['id', 'name'],
             ],
         ]);
     }

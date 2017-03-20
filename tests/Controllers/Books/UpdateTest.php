@@ -29,12 +29,10 @@ class UpdateTest extends TestCase
         ]);
         $this->seeJson([
             'title' => 'The Jedi Path',
-            'name' => $author->name,
         ]);
         $this->seeJsonStructure([
             'data' => [
                 'id', 'title',
-                'author' => ['id', 'name'],
             ],
         ]);
     }

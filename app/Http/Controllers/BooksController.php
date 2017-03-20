@@ -4,37 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Transformers\BookTransformer;
 
 class BooksController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  Request $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index()
     {
         $limit = $this->parameters->limit(10);
-        $include = $this->parameters->include();
         $sort = $this->parameters->sortBy('id');
         $order = $this->parameters->orderBy('desc');
 
-        $books = Book::take($limit)->orderBy($sort, $order);
+        $books = Book::orderBy($sort, $order)->paginate($limit);
 
-        if ($include) {
-            $books = $books->with($include);
-        }
-
-        $books = $books->get();
-
-        $pagination = new LengthAwarePaginator($books, Book::count(), $limit);
-
-        return $this->response->withResource($books, [
-            'pagination' => array_except($pagination->toArray(), 'data'),
-        ]);
+        return $this->response->withPagination($books, new BookTransformer);
     }
 
     /**
@@ -57,29 +44,25 @@ class BooksController extends Controller
             ->associate($request->author)
             ->save();
 
-        $book->load('author');
-
-        return $this->response->withCreated($book);
+        return $this->response->withCreated($book, new BookTransformer);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Request $request
      * @param  int     $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Request $request, $id)
+    public function show($id)
     {
-        $include = $this->parameters->include();
-        $book = ($include) ? Book::with($include)->find($id) : Book::find($id);
+        $book = Book::find($id);
 
         if (! $book) {
             return $this->response->withNotFound();
         }
 
-        return $this->response->withResource($book);
+        return $this->response->withItem($book, new BookTransformer);
     }
 
     /**
@@ -108,9 +91,7 @@ class BooksController extends Controller
             ->associate($request->author)
             ->save();
 
-        $book->load('author');
-
-        return $this->response->withResource($book);
+        return $this->response->withItem($book, new BookTransformer);
     }
 
     /**
