@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
+use App\Transformers\UserTransformer;
 
 class AuthController extends Controller
 {
@@ -25,7 +26,7 @@ class AuthController extends Controller
 
         return $this->response->withResource([
             'token' => $token,
-            'user' => Auth::user(),
+            'user' => $this->transform->item(Auth::user(), new UserTransformer)['data'],
         ]);
     }
 }
