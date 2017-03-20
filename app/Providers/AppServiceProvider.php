@@ -15,6 +15,5 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->register(\Barryvdh\Cors\LumenServiceProvider::class);
         $this->app->register(\Tymon\JWTAuth\Providers\LumenServiceProvider::class);
-        $this->app->register(\App\Providers\TransformerServiceProvider::class);
     }
 }

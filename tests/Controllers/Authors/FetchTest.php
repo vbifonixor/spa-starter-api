@@ -48,7 +48,7 @@ class FetchTest extends TestCase
                 '*' => [
                     'id', 'name',
                     'books' => [
-                        '*' => ['id', 'title'],
+                        'data' => ['*' => ['id', 'title']],
                     ],
                 ],
             ],

@@ -25,16 +25,6 @@ class ResponseFactory
     protected $statusCode = Response::HTTP_OK;
 
     /**
-     * Creates a new instance of the response factory.
-     *
-     * @param TransformerHandler $transformer
-     */
-    public function __construct(TransformerHandler $transformer)
-    {
-        $this->transformer = $transformer;
-    }
-
-    /**
      * Sets the transformer handler.
      *
      * @param TransformerHandler $transformer
@@ -181,13 +171,20 @@ class ResponseFactory
     /**
      * Make a 201 JSON response.
      *
-     * @param  mixed $resource
+     * @param  mixed                    $data
+     * @param  TransformerAbstract|null $transformer
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function withCreated($resource)
+    public function withCreated($data, TransformerAbstract $transformer = null)
     {
-        return $this->withStatusCode(Response::HTTP_CREATED)->withResource($resource);
+        $this->withStatusCode(Response::HTTP_CREATED);
+
+        if (! $transformer) {
+            return $this->withResource($data);
+        }
+
+        return $this->withItem($data, $transformer);
     }
 
     /**

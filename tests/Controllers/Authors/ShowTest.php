@@ -61,7 +61,7 @@ class ShowTest extends TestCase
             'data' => [
                 'id', 'name',
                 'books' => [
-                    '*' => ['id', 'title'],
+                    'data' => ['*' => ['id', 'title']],
                 ],
             ],
         ]);
