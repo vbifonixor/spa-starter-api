@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use App\Transformers\UserTransformer;
 
 class MeController extends Controller
 {
@@ -13,6 +14,6 @@ class MeController extends Controller
      */
     public function show()
     {
-        return $this->response->withResource(Auth::user());
+        return $this->response->withItem(Auth::user(), new UserTransformer);
     }
 }
