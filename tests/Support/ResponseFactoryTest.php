@@ -173,7 +173,7 @@ class ResponseFactoryTest extends TestCase
     {
         $response = $this->response->withCollection([
             ['status' => 1],
-            ['status' => 0]
+            ['status' => 0],
         ], new Transformer);
 
         $this->assertInstanceOf(JsonResponse::class, $response);

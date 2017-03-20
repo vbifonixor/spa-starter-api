@@ -53,7 +53,6 @@ class Controller extends BaseController
 
         $this->response = $response;
         $this->response->setTransformerHandler($this->transform);
-
     }
 
     /**

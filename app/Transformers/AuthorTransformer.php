@@ -8,7 +8,7 @@ use League\Fractal\TransformerAbstract;
 class AuthorTransformer extends TransformerAbstract
 {
     /**
-     * List of resources possible to include
+     * List of resources possible to include.
      *
      * @var array
      */
