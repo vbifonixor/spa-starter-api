@@ -40,7 +40,9 @@ class ShowTest extends TestCase
         $this->seeJsonStructure([
             'data' => [
                 'id', 'title',
-                'author' => ['id', 'name'],
+                'author' => [
+                    'data' => ['id', 'name'],
+                ],
             ],
         ]);
     }

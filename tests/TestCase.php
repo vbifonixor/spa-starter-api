@@ -9,6 +9,15 @@ use Laravel\Lumen\Testing\TestCase as LumenTestCase;
 abstract class TestCase extends LumenTestCase
 {
     /**
+     * Testing helper traits and their boot methods.
+     *
+     * @var array
+     */
+    private $testingHelpersMethods = [
+        WithoutMiddleware::class => 'disableMiddlewareForAllTests',
+    ];
+
+    /**
      * Creates the application.
      *
      * @return \Laravel\Lumen\Application
@@ -34,13 +43,17 @@ abstract class TestCase extends LumenTestCase
     {
         $uses = array_flip(class_uses_recursive(get_class($this)));
 
-        if (isset($uses[WithoutMiddleware::class])) {
-            $this->disableMiddlewareForAllTests();
+        foreach ($this->testingHelpersMethods as $helper => $method) {
+            if (! array_key_exists($helper, $uses)) {
+                continue;
+            }
+
+            $this->{$method}();
         }
     }
 
     /**
-     * Assert if a piece of data is not in database.
+     * Assert that a piece of data is not in database.
      *
      * @param  string $table
      * @param  array  $data

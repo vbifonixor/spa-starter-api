@@ -4,37 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Transformers\AuthorTransformer;
 
 class AuthorsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  Request $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index()
     {
         $limit = $this->parameters->limit(10);
-        $include = $this->parameters->include();
         $sort = $this->parameters->sortBy('id');
         $order = $this->parameters->orderBy('desc');
 
-        $authors = Author::take($limit)->orderBy($sort, $order);
+        $authors = Author::orderBy($sort, $order)->paginate($limit);
 
-        if ($include) {
-            $authors = $authors->with($include);
-        }
-
-        $authors = $authors->get();
-
-        $pagination = new LengthAwarePaginator($authors, Author::count(), $limit);
-
-        return $this->response->withResource($authors, [
-            'pagination' => array_except($pagination->toArray(), 'data'),
-        ]);
+        return $this->response->withPagination($authors, new AuthorTransformer);
     }
 
     /**
@@ -54,27 +41,25 @@ class AuthorsController extends Controller
             'name' => $request->name,
         ]);
 
-        return $this->response->withCreated($author);
+        return $this->response->withCreated($author, new AuthorTransformer);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Request $request
      * @param  int     $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Request $request, $id)
+    public function show($id)
     {
-        $include = $this->parameters->include();
-        $author = ($include) ? Author::with($include)->find($id) : Author::find($id);
+        $author = Author::find($id);
 
         if (! $author) {
             return $this->response->withNotFound();
         }
 
-        return $this->response->withResource($author);
+        return $this->response->withItem($author, new AuthorTransformer);
     }
 
     /**
@@ -101,7 +86,7 @@ class AuthorsController extends Controller
             'name' => $request->name,
         ])->save();
 
-        return $this->response->withResource($author);
+        return $this->response->withItem($author, new AuthorTransformer);
     }
 
     /**

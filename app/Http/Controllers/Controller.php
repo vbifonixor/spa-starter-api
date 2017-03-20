@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use League\Fractal\Manager;
+use Illuminate\Http\Request;
 use App\Support\ResponseFactory;
 use App\Support\QueryParameterBag;
+use App\Support\TransformerHandler;
 use Illuminate\Validation\Validator;
+use League\Fractal\Serializer\DataArraySerializer;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
@@ -24,14 +28,31 @@ class Controller extends BaseController
     protected $parameters;
 
     /**
+     * Transformer handler.
+     *
+     * @var \App\Support\TransformerHandler
+     */
+    protected $transform;
+
+    /**
      * Creates a new controller instance.
      *
      * @param ResponseFactory $response
      */
-    public function __construct(ResponseFactory $response, QueryParameterBag $parameters)
+    public function __construct(Request $request, ResponseFactory $response, QueryParameterBag $parameters)
     {
-        $this->response = $response;
+        $fractal = new Manager;
+        $serializer = new DataArraySerializer;
+
+        if ($request->has('include')) {
+            $fractal->parseIncludes($request->query('include'));
+        }
+
         $this->parameters = $parameters;
+        $this->transform = new TransformerHandler($fractal, $serializer);
+
+        $this->response = $response;
+        $this->response->setTransformerHandler($this->transform);
     }
 
     /**

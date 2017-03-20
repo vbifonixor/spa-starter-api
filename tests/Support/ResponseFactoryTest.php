@@ -2,16 +2,37 @@
 
 namespace Tests\Support;
 
+use League\Fractal\Manager;
+use Tests\Samples\Transformer;
 use App\Support\ResponseFactory;
 use Illuminate\Http\JsonResponse;
+use App\Support\TransformerHandler;
 use PHPUnit_Framework_TestCase as TestCase;
+use League\Fractal\Serializer\DataArraySerializer;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ResponseFactoryTest extends TestCase
 {
+    /**
+     * Response factory.
+     *
+     * @var \App\Support\ResponseFactory
+     */
+    protected $response;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->response = new ResponseFactory;
+        $this->response->setTransformerHandler(
+            new TransformerHandler(new Manager, new DataArraySerializer)
+        );
+    }
+
     public function testCanSetTheStatusCode()
     {
-        $factory = new ResponseFactory;
-        $response = $factory->withStatusCode(418);
+        $response = $this->response->withStatusCode(418);
 
         $this->assertInstanceOf(ResponseFactory::class, $response);
         $this->assertEquals(418, $response->statusCode());
@@ -20,11 +41,10 @@ class ResponseFactoryTest extends TestCase
     public function testMakeSimpleJsonResponse()
     {
         $statusCode = 418;
-        $body = 'You sexy thing!';
+        $body = 'How could you forget the pie!';
         $headers = ['Ned' => 'Stark'];
 
-        $factory = new ResponseFactory;
-        $response = $factory->withStatusCode($statusCode)->withJson($body, $headers);
+        $response = $this->response->withStatusCode($statusCode)->withJson($body, $headers);
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals($statusCode, $response->status());
@@ -40,8 +60,7 @@ class ResponseFactoryTest extends TestCase
 
     public function testMakeResourceResponse()
     {
-        $factory = new ResponseFactory;
-        $response = $factory->withResource(['some data']);
+        $response = $this->response->withResource(['some data']);
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(200, $response->status());
@@ -52,14 +71,13 @@ class ResponseFactoryTest extends TestCase
 
     public function testMakeResourceResponseWithMetadata()
     {
-        $factory = new ResponseFactory;
-        $response = $factory->withResource(['some data'], ['some metadata']);
+        $response = $this->response->withResource(['some data'], ['some metadata']);
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(200, $response->status());
         $this->assertEquals([
             'data' => ['some data'],
-            'metadata' => ['some metadata'],
+            'meta' => ['some metadata'],
         ], $response->getData(true));
     }
 
@@ -68,8 +86,7 @@ class ResponseFactoryTest extends TestCase
         $message = "I'm a teapot";
         $statusCode = 418;
 
-        $factory = new ResponseFactory;
-        $response = $factory->withStatusCode($statusCode)->withError($message);
+        $response = $this->response->withStatusCode($statusCode)->withError($message);
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals($statusCode, $response->status());
@@ -80,8 +97,7 @@ class ResponseFactoryTest extends TestCase
 
     public function testMakeNotFoundErrorResponse()
     {
-        $factory = new ResponseFactory;
-        $response = $factory->withNotFound("These aren't the droids you're looking for");
+        $response = $this->response->withNotFound("These aren't the droids you're looking for");
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(404, $response->status());
@@ -92,8 +108,7 @@ class ResponseFactoryTest extends TestCase
 
     public function testMakeNoContentResponse()
     {
-        $factory = new ResponseFactory;
-        $response = $factory->withNoContent();
+        $response = $this->response->withNoContent();
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(204, $response->status());
@@ -102,8 +117,7 @@ class ResponseFactoryTest extends TestCase
 
     public function testMakeInternalServerErrorResponse()
     {
-        $factory = new ResponseFactory;
-        $response = $factory->withInternalServerError('Something went really wrong!');
+        $response = $this->response->withInternalServerError('Something went really wrong!');
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(500, $response->status());
@@ -114,8 +128,7 @@ class ResponseFactoryTest extends TestCase
 
     public function testMakeUnauthorizedErrorResponse()
     {
-        $factory = new ResponseFactory;
-        $response = $factory->withUnauthorized('You shall not pass!');
+        $response = $this->response->withUnauthorized('You shall not pass!');
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(401, $response->status());
@@ -126,8 +139,7 @@ class ResponseFactoryTest extends TestCase
 
     public function testMakeTooManyRequestsErrorResponse()
     {
-        $factory = new ResponseFactory;
-        $response = $factory->withTooManyRequests('You stop that shit right now!');
+        $response = $this->response->withTooManyRequests('You stop that shit right now!');
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(429, $response->status());
@@ -138,13 +150,54 @@ class ResponseFactoryTest extends TestCase
 
     public function testMakeCreatedResponse()
     {
-        $factory = new ResponseFactory;
-        $response = $factory->withCreated(['resource']);
+        $response = $this->response->withCreated(['resource']);
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(201, $response->status());
         $this->assertEquals([
             'data' => ['resource'],
+        ], $response->getData(true));
+    }
+
+    public function testMakeItemResponse()
+    {
+        $response = $this->response->withItem([
+            'status' => 1,
+        ], new Transformer);
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals([
+            'data' => ['status' => 'OK'],
+        ], $response->getData(true));
+    }
+
+    public function testMakeCollectionResponse()
+    {
+        $response = $this->response->withCollection([
+            ['status' => 1],
+            ['status' => 0],
+        ], new Transformer);
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals([
+            'data' => [
+                ['status' => 'OK'],
+                ['status' => 'NO'],
+            ],
+        ], $response->getData(true));
+    }
+
+    public function testMakeCollectionResponseWithPagination()
+    {
+        $mock = $this->getMockBuilder(LengthAwarePaginator::class)
+            ->setMethods(['count'])
+            ->getMockForAbstractClass();
+
+        $response = $this->response->withPagination($mock, new Transformer);
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertArraySubset([
+            'meta' => ['pagination' => []],
         ], $response->getData(true));
     }
 }

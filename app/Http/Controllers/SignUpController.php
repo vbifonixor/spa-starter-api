@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Hash;
+use App\Transformers\UserTransformer;
 
 class SignUpController extends Controller
 {
@@ -32,6 +33,9 @@ class SignUpController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        return $this->response->withCreated(compact('user', 'token'));
+        return $this->response->withCreated([
+            'user' => $this->transform->item($user, new UserTransformer)['data'],
+            'token' => $token,
+        ]);
     }
 }

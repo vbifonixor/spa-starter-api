@@ -26,7 +26,7 @@ class FetchTest extends TestCase
             'data' => [
                 '*' => ['id', 'name'],
             ],
-            'metadata' => [
+            'meta' => [
                 'pagination',
             ],
         ]);
@@ -48,11 +48,11 @@ class FetchTest extends TestCase
                 '*' => [
                     'id', 'name',
                     'books' => [
-                        '*' => ['id', 'title'],
+                        'data' => ['*' => ['id', 'title']],
                     ],
                 ],
             ],
-            'metadata' => [
+            'meta' => [
                 'pagination',
             ],
         ]);
