@@ -31,7 +31,7 @@ $factory->define(App\Author::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Book::class, function (Faker\Generator $faker) {
     return [
-        'title' => $faker->title,
+        'title' => $faker->sentence($nbWords = 4, $variableNbWords = true),
         'author_id' => function () {
             return factory(App\Author::class)->create()->id;
         },
